@@ -1,0 +1,177 @@
+<div class="card" style="width: 100%; height: 100%; margin-bottom: 0px !important;">
+    <div class="card-body">
+      <div class="row">
+        <h3 style="color: rgb(110, 106, 106);">EDIT INQUIRIES</h3>
+  
+        <!-- Index Number Field -->
+        <div class="col-sm-12 mb-3 mt-4">
+          <label for="indexNumber">Index Number</label>
+          <div class="form-group">
+            <input 
+              class="form-control" 
+              #indexNumber
+              id="indexNumber" 
+              placeholder="Index Number" 
+              [value]="inquiryData.indexNumber"
+            />
+          </div>
+        </div>
+      </div>
+  
+      <!-- Student Name & Contact Number Fields -->
+      <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label for="studentName">Student Name</label>
+          <input 
+            class="form-control" 
+            #studentName 
+            id="studentName" 
+            placeholder="Student Name" 
+            [value]="inquiryData.studentName"
+          />
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label for="contactNumber">Contact Number</label>
+          <input 
+            class="form-control" 
+            #contactNumber 
+            id="contactNumber" 
+            placeholder="Contact Number" 
+            [value]="inquiryData.contactNumber"
+          />
+        </div>
+      </div>
+  
+      <!-- Academic Year & Department Fields -->
+      <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label for="academicYear">Academic Year</label>
+          <input 
+            class="form-control" 
+            #academicYear 
+            id="academicYear" 
+            placeholder="Academic Year" 
+            [value]="inquiryData.academicYear"
+          />
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label for="department">Department</label>
+          <select 
+            class="form-control" 
+            #department 
+            id="department"
+          >
+            <!-- <option value="hr" [selected]="inquiryData.department === 'hr'">HR</option>
+            <option value="finance" [selected]="inquiryData.department === 'finance'">Finance</option>
+            <option value="marketing" [selected]="inquiryData.department === 'marketing'">Marketing</option>
+            <option value="it" [selected]="inquiryData.department === 'it'">IT</option> -->
+
+            <option value="" disabled selected>Select Department</option>
+                            <option value="Admission" [selected]="inquiryData.department === 'Admission'">Admission</option>
+                            <option value="Academic" [selected]="inquiryData.department === 'Academic'">Academic</option>
+                            <option value="HR" [selected]="inquiryData.department === 'HR'">HR</option>
+                            <option value="Finance" [selected]="inquiryData.department === 'Finance'">Finance</option>
+                            <option value="General Admin" [selected]="inquiryData.department === 'General Admin'">General Admin</option>
+                            <option value="personnel" [selected]="inquiryData.department === 'personnel'">personnel</option>
+                            <option value="MIS" [selected]="inquiryData.department === 'MIS'">MIS</option>
+                            <option value="Secretariat office" [selected]="inquiryData.department === 'Secretariat office'">,Secretariat office</option>
+                            <option value="Chairman Office" [selected]="inquiryData.department === 'Chairman Office'">Chairman Office</option>
+                            <option value="Legal" [selected]="inquiryData.department === 'Legal'">Legal</option>
+                            <option value="Other" [selected]="inquiryData.department === 'Other'">Other</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Inquiry Type & Forwarded To Fields -->
+      <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label for="inquiryType">Inquiry Type</label>
+          <select 
+            class="form-control" 
+            #inquiryType 
+            id="inquiryType"
+          >
+            <!-- <option value="hr" [selected]="inquiryData.inquiryType === 'hr'">HR</option>
+            <option value="finance" [selected]="inquiryData.inquiryType === 'finance'">Finance</option>
+            <option value="marketing" [selected]="inquiryData.inquiryType === 'marketing'">Marketing</option>
+            <option value="it" [selected]="inquiryData.inquiryType === 'it'">IT</option> -->
+            <option value="" disabled selected>Select Inquiry Type</option>
+            <option value="Cutoff" [selected]="inquiryData.inquiryType === 'Cutoff'">Cutoff</option>
+            <option value="Normal intake" [selected]="inquiryData.inquiryType === 'Normal intake'">Normal intake</option>
+            <option value="Special intake" [selected]="inquiryData.inquiryType === 'Special intake'">Special intake</option>
+            <option value="Disable Intake" [selected]="inquiryData.inquiryType === 'Disable Intake'">Disable Intake</option>
+            <option value="CGP" [selected]="inquiryData.inquiryType === 'CGP'">CGP</option>
+            <option value="Late Reg" [selected]="inquiryData.inquiryType === 'Late Reg'">Late Reg</option>
+            <option value="Previous Course back" [selected]="inquiryData.inquiryType === 'Previous Course back'">Previous Course back</option>
+            <option value="email or phone no Change" [selected]="inquiryData.inquiryType === 'email or phone no Change'">Demail or phone no Change</option>
+            <option value="Mahapola" [selected]="inquiryData.inquiryType === 'Mahapola'">Mahapola</option>
+            <option value="Other" [selected]="inquiryData.inquiryType === 'Other'">Other</option>
+          </select>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label for="forwardedTo">Forwarded To</label>
+          <!-- <input 
+            class="form-control" 
+            #forwardedTo 
+            id="forwarded" 
+            placeholder="Forwarded To" 
+            [value]="inquiryData.forwardedTo"
+          /> -->
+          <select 
+          class="form-control" 
+          #forwardedTo 
+          id="forwardedTo"
+        >
+          <!-- <option value="hr" [selected]="inquiryData.inquiryType === 'hr'">HR</option>
+          <option value="finance" [selected]="inquiryData.inquiryType === 'finance'">Finance</option>
+          <option value="marketing" [selected]="inquiryData.inquiryType === 'marketing'">Marketing</option>
+          <option value="it" [selected]="inquiryData.inquiryType === 'it'">IT</option> -->
+          <option value="" disabled selected>Select Forwarded</option>
+          <option value="Cutoff" [selected]="inquiryData.forwardedTo === 'Cutoff'">Cutoff</option>
+          <option value="Normal intake" [selected]="inquiryData.forwardedTo === 'Normal intake'">Normal intake</option>
+          <option value="Special intake" [selected]="inquiryData.forwardedTo === 'Special intake'">Special intake</option>
+          <option value="Disable Intake" [selected]="inquiryData.forwardedTo === 'Disable Intake'">Disable Intake</option>
+          <option value="CGP" [selected]="inquiryData.forwardedTo === 'CGP'">CGP</option>
+          <option value="Late Reg" [selected]="inquiryData.forwardedTo === 'Late Reg'">Late Reg</option>
+          <option value="Previous Course back" [selected]="inquiryData.forwardedTo === 'Previous Course back'">Previous Course back</option>
+          <option value="email or phone no Change" [selected]="inquiryData.forwardedTo === 'email or phone no Change'">Demail or phone no Change</option>
+          <option value="Mahapola" [selected]="inquiryData.forwardedTo === 'Mahapola'">Mahapola</option>
+          <option value="Other" [selected]="inquiryData.forwardedTo === 'Other'">Other</option>
+        </select>
+        </div>
+      </div>
+   <!-- Inquiry Type & Forwarded To Fields -->
+   <div class="row">
+    <div class="col-sm-12 mb-3">
+      <label for="updatedStatus">Status</label>
+      <select 
+        class="form-control" 
+        #updatedStatus 
+        id="updatedStatus"
+      >
+        <option value="Forwarded" [selected]="inquiryData.updatedStatus === 'Forwarded'">Forwarded</option>
+        <option value="Resolved" [selected]="inquiryData.updatedStatus === 'Resolved'">Resolved</option>
+        <option value="In Progress" [selected]="inquiryData.updatedStatus === 'In Progress'">In Progress</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 mb-3">
+        <div class="form-group">
+            <label for="remarks">Remark</label>
+            <textarea class="form-control" 
+            #remarks 
+            id="remarks" 
+            placeholder="remarks" 
+            [value]="inquiryData.remarks"
+                placeholder="Enter your remarks here"></textarea>
+        </div>
+    </div>
+</div>
+      <div class="button-container">
+        <button class="mt-2 btn btn-secondary btn-block cancel-button mb-2" (click)="onCancel()">Cancel</button>
+        <button class="mt-2 btn btn-primary btn-block confirm-button mb-2" (click)="clickfunc()">Confirm</button>
+    </div>
+    </div>
+  </div>
+  

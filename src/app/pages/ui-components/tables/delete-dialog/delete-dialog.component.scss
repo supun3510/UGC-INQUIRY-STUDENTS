@@ -1,0 +1,13 @@
+.button-container {
+    display: flex;
+    justify-content: center;  /* Centers the buttons horizontally */
+    gap: 10px;  /* Adds space between the buttons */
+    align-items: center;  /* Vertically center the buttons */
+  }
+  
+  .button-container .btn {
+    margin: 20px;
+    width: 200px;  /* Ensure buttons are not stretched to full width */
+    flex: 0 0 auto;  /* Prevent buttons from growing to take available space */
+  }
+  
