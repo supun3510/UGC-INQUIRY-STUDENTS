@@ -72,6 +72,10 @@ export class AppTablesComponent {
   displayedColumns1: string[] = ['student_name','academic_year', 'phone_number','department','inquiry_type','initial_status', 'created_at' , 'budget'];
   selectedRow: any = null;
 
+  showToast: boolean = false;
+  toastMessage: string = '';
+  toastType: string = '';  // This will hold the type of the toast (success, error, info)]
+
   constructor(private userService: TableService,
     private tableService: TableService,
     private dialog: MatDialog,
@@ -110,6 +114,7 @@ export class AppTablesComponent {
       if (result) {
         // Save the changes after closing the dialog
         this.updateRow(result);
+        this.showToastMessage('Record edit successfully','success');
       }
     });
   }
@@ -124,6 +129,7 @@ export class AppTablesComponent {
    
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.showToastMessage('Record delete successfully','error');
         // Save the changes after closing the dialog
         this.updateRow(result);
       }
@@ -162,12 +168,13 @@ export class AppTablesComponent {
   addRow(): void {
     const dialogRef = this.dialog.open(AddDialogComponent, {
       width: '500px', // Adjust width
-      height: '600px', // Adjust height
+      height: '500px', // Adjust height
       disableClose: true, // Prevent closing when clicking outside
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.showToastMessage('Record added successfully','success');
         this.saveNewRow(result);
       }
     });
@@ -186,4 +193,23 @@ export class AppTablesComponent {
       }
     );
   }
+
+
+    
+   // Method to show success toast
+   showToastMessage(message: string , type: string) {
+    this.toastMessage = message;
+    this.showToast = true;
+    this.toastType = type
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      this.showToast = false;
+      // this.onCancel();
+    }, 3000);
+  }
+
+   // Method to close toast manually
+closeToast() {
+  this.showToast = false;
+}
 }

@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableService } from '../tableService';
 import { MatDialogRef } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-dialog',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './add-dialog.component.html',
   styleUrl: './add-dialog.component.scss'
 })
@@ -116,6 +117,7 @@ export class AddDialogComponent {
       (res: any) => {
         console.log(res);
         this.onCancel();
+        
         // this.snackBar.open('Record updated successfully', 'Close', { duration: 2000 });
         // this.get(); // Refresh table data
       },
@@ -136,6 +138,7 @@ export class AddDialogComponent {
   //     }
   //   });
   // }
+
 }
 
 

@@ -1,26 +1,27 @@
 <div class="card" style="width: 100%; height: 100%; margin-bottom: 0px !important;">
     <div class="card-body">
+        
+        <h3 style="color: rgb(110, 106, 106);">ADD INQUIRIES</h3>
         <div class="row">
-            <h3 style="color: rgb(110, 106, 106);">ADD INQUIRIES</h3>
-            <div class="col-sm-12 mb-3 mt-4">
-                <label for="studentName">Index Number</label>
+            <div class="col-sm-12 mb-4 mt-4">
+                <!-- <label for="studentName">Index Number</label> -->
                 <div class="form-group">
                     <input class="form-control" type="text" id="indexNumber" placeholder="Index Number">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 mb-4">
                 <div class="form-group">
-                    <label for="studentName">Student Name</label>
+                    <!-- <label for="studentName">Student Name</label> -->
                     <div class="input-group">
                         <input class="form-control" id="studentName" type="text" placeholder="Student Name">
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 mb-4">
                 <div class="form-group">
-                    <label for="contactNumber">Contact Number</label>
+                    <!-- <label for="contactNumber">Contact Number</label> -->
                     <div class="input-group">
                         <input class="form-control" id="contactNumber" type="text" placeholder="Contact Number">
                     </div>
@@ -28,17 +29,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 mb-4">
                 <div class="form-group">
-                    <label for="academicYear">Academic Year</label>
+                    <!-- <label for="academicYear">Academic Year</label> -->
                     <div class="input-group">
                         <input class="form-control" id="academicYear" type="text" placeholder="Academic Year">
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 mb-4">
                 <div class="form-group">
-                    <label for="department">Department</label>
+                    <!-- <label for="department">Department</label> -->
                     <div class="input-group">
                         <select class="form-control" id="department">
                             <option value="" disabled selected>Select Department</option>
@@ -59,9 +60,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 mb-4">
                 <div class="form-group">
-                    <label for="inquiryType">Inquiry Type</label>
+                    <!-- <label for="inquiryType">Inquiry Type</label> -->
                     <div class="input-group">
                         <select class="form-control" id="inquiryType">
                             <option value="" disabled selected>Select Inquiry Type</option>
@@ -79,9 +80,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 mb-4">
                 <div class="form-group">
-                    <label for="forwarded">Forwarded To</label>
+                    <!-- <label for="forwarded">Forwarded To</label> -->
                     <div class="input-group">
                         <select class="form-control" id="forwarded">
                             <option value="" disabled selected>Select Forwarded</option>
@@ -102,17 +103,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 mb-3">
+            <div class="col-sm-12 mb-4">
                 <div class="form-group">
-                    <label for="remark">Remark</label>
+                    <!-- <label for="remark">Remark</label> -->
                     <textarea class="form-control" id="remark" rows="2"
                         placeholder="Enter your remarks here"></textarea>
                 </div>
             </div>
         </div>
-        <div class="button-container">
-            <button class="mt-2 btn btn-secondary btn-block cancel-button mb-2" (click)="onCancel()" id="cancelButton">Cancel</button>
-            <button class="mt-2 btn btn-primary btn-block confirm-button mb-2" (click)="clickfunc()">Confirm</button>
+        <div class="button-container mt-6">
+            <button class="mt-2 btn btn-secondary btn-block cancel-button" (click)="onCancel()" id="cancelButton">Cancel</button>
+            <button class="mt-2 btn btn-primary btn-block confirm-button" (click)="clickfunc()">Confirm</button>
         </div>
     </div>
 </div>
+
+
+  
