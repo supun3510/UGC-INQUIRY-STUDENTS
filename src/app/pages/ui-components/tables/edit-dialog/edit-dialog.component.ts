@@ -2,140 +2,116 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TableService } from '../tableService';
 import { state } from '@angular/animations';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from 'src/app/material.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-dialog',
-  imports: [],
+  imports: [CommonModule, MaterialModule,ReactiveFormsModule],
   templateUrl: './edit-dialog.component.html',
   styleUrl: './edit-dialog.component.scss'
 })
 export class EditDialogComponent {
-  @Output() saveInquiry = new EventEmitter<any>();
-
-  /**
-   *
-   */
-  constructor(public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public inqurieService: TableService) {
-    // console.log(data)
-  }
-  
-  @Input() inquiryData: any = {
-    id : this.data.id,
-    indexNumber: this.data.index_number,
-    studentName: this.data.student_name,
-    contactNumber: this.data.phone_number,
-    academicYear: this.data.academic_year,
-    department: this.data.department,
-    inquiryType: this.data.inquiry_type,
-    forwardedTo: this.data.forwarded_to,
-    updatedStatus: this.data.updated_status,
-    remarks: this.data.remarks
-  };
-
-
-  // Toggle to edit mode or save
-  // toggleEdit(): void {
-  //   this.isEditMode = !this.isEditMode;
-  // }
-
-  getFormData(): Inquiry | null {
-    // Retrieve values from the form
-    const indexNumber = (document.getElementById('indexNumber') as HTMLInputElement).value;
-    const studentName = (document.getElementById('studentName') as HTMLInputElement).value;
-    const contactNumber = (document.getElementById('contactNumber') as HTMLInputElement).value;
-    const academicYear = (document.getElementById('academicYear') as HTMLInputElement).value;
-    const department = (document.getElementById('department') as HTMLSelectElement).value;
-    const inquiryType = (document.getElementById('inquiryType') as HTMLSelectElement).value;
-    const updatedStatus = (document.getElementById('updatedStatus') as HTMLSelectElement).value;
-    const forwardedTo = (document.getElementById('forwardedTo') as HTMLSelectElement).value;
-    const remarks = (document.getElementById('remarks') as HTMLTextAreaElement).value;
-    const id = this.data.id;
-  
-    // Validate that all fields are filled (optional)
-    // if (
-    //   !indexNumber ||
-    //   !studentName ||
-    //   !contactNumber ||
-    //   !academicYear ||
-    //   !department ||
-    //   !inquiryType ||
-    //   !forwardedTo ||
-    //   !remark
-    // ) {
-    //   console.error('All fields are required.');
-    //   return null;
-    // }
-  
-    // Create an instance of the Inquiry model
-    const inquiry = new Inquiry(
-      id,
-      indexNumber,
-      studentName,
-      contactNumber,
-      academicYear,
-      department,
-      inquiryType,
-      forwardedTo,
-      remarks,
-      updatedStatus
-    );
-  
-    // Log the model (or pass it to a function for further processing)
-    console.log(inquiry);
-    return inquiry;
-  }
-
-  
-  onCancel(): void {
-    this.dialogRef.close(false);
-  }
-  clickfunc(){
-    var userId = localStorage.getItem('userId')
-    const inquiry = this.getFormData();
-    console.log('Inquiry data:', inquiry);
-    var model = {
-      'id': inquiry?.id,
-      'index_number': inquiry?.indexNumber,
-      'student_name': inquiry?.studentName,
-      'phone_number': inquiry?.contactNumber,
-      'academic_year': inquiry?.academicYear,
-      'department': inquiry?.department,
-      'inquiry_type': inquiry?.inquiryType,
-      'forwarded_to': inquiry?.forwardedTo,
-      'remarks': inquiry?.remarks,
-      'user_id':userId,
-      'updated_status': inquiry?.updatedStatus,
-      'initial_status':"Forwarded"
-      };
-    this.inqurieService.editInquiry(userId,model).subscribe(
-      (res: any) => {
-        console.log(res);
-        // this.dialogRef.close(false);
-        this.onCancel();
-        // this.snackBar.open('Record updated successfully', 'Close', { duration: 2000 });
-        // this.get(); // Refresh table data
-      },
-      error => {
-        // this.snackBar.open('Error updating record', 'Close', { duration: 2000 });
-      }
-    );
-  }
-
-}
-
-
-class Inquiry {
+  inquiryForm: FormGroup;
+  departments = ['Admission', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Chairman Office', 'Legal', 'Other'];
+  inquiryTypes = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone No Change', 'Mahapola', 'Other'];
+  forwardedOptions = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone No Change', 'Mahapola', 'Other'];
+  statusOptions = ['Resolved','In Progress','Forwarded']
   constructor(
-    public id: number,
-    public indexNumber: string,
-    public studentName: string,
-    public contactNumber: string,
-    public academicYear: string,
-    public department: string,
-    public inquiryType: string,
-    public forwardedTo: string,
-    public updatedStatus: any,
-    public remarks: any
+    private inquiryService: TableService, 
+    private dialogRef: MatDialogRef<EditDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+
+  ngOnInit(): void {
+    // Initialize form group with validation
+    this.inquiryForm = new FormGroup({
+
+      index_number: new FormControl(this.data?.index_number , [Validators.required,Validators.minLength(7),Validators.maxLength(7)]),
+      student_name: new FormControl(this.data?.student_name , Validators.required),
+      phone_number: new FormControl(this.data?.phone_number , [
+        Validators.required,
+        Validators.pattern('^[0-9]{9}$')
+      ]),
+      academic_year: new FormControl(this.data?.academic_year , Validators.required),
+      department: new FormControl(this.data?.department , Validators.required),
+      inquiry_type: new FormControl(this.data?.inquiry_type , Validators.required),
+      forwarded_to: new FormControl(this.data?.forwarded_to , [Validators.required]),
+      remarks: new FormControl(this.data?.remarks , [Validators.required]),
+      initial_status: new FormControl(this.data?.initial_status),
+      updated_status: new FormControl(this.data?.updated_status),
+      inquiryTime: new FormControl(this.data?.inquiry_time ),
+      createdAt: new FormControl(this.data?.created_at ),
+      updatedAt: new FormControl(this.data?.updated_at),
+      user_id: new FormControl(this.data?.user_id )
+    });
+  }
+
+  // Submit or update form data
+  onSubmit(): void {
+    if (this.inquiryForm.valid) {
+      const formData = this.inquiryForm.value;
+      console.log('Form Submitted:', formData);
+
+      if (this.data) {
+        // Assuming this.data.id contains the record ID you want to update
+const formData = {
+  ...this.inquiryForm.value, // Get the form values
+  id: this.data.id // Add the id to the formData
+};
+        this.inquiryService.editInquiry(this.data.id, formData).subscribe(
+          (res: any) => {
+            console.log('Update Success:', res);
+            // alert('Data updated successfully!');
+            this.dialogRef.close(true);
+          },
+          (error) => {
+            console.error('Update Error:', error);
+            // alert('Failed to update data.');
+          }
+        );
+      } else {
+        this.inquiryService.addInquiry({ 
+          ...formData, 
+          id:this.data.id,
+          user_id: localStorage.getItem('userId'), 
+          initial_status: "Forwarded", 
+          updated_status: "Forwarded" 
+        }).subscribe(
+          (res: any) => {
+            console.log('Add Success:', res);
+            // alert('Data saved successfully!');
+            this.dialogRef.close(true);
+          },
+          (error) => {
+            console.error('Add Error:', error);
+            // alert('Failed to save data.');
+          }
+        );
+      }
+    } else {
+      // alert('Please fill in all required fields.');
+    }
+    
+
+
+// class Inquiry {
+//   constructor(
+//     public id: number,
+//     public indexNumber: string,
+//     public studentName: string,
+//     public contactNumber: string,
+//     public academicYear: string,
+//     public department: string,
+//     public inquiryType: string,
+//     public forwardedTo: string,
+//     public updatedStatus: any,
+//     public remarks: any
+//   ) {}
+}
+onCancel(): void {
+  this.dialogRef.close(false);
+}
 }

@@ -11,22 +11,22 @@ export class TableService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
+  getInqueries(): Observable<any> {
     console.log(this.apiUrl)
     return this.http.post<any[]>(this.apiUrl, "");
   }
 
-  addUser(user: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/users`, user);
-  }
+  // addUser(user: any): Observable<any> {
+  //   return this.http.post<any>(`${this.apiUrl}/users`, user);
+  // }
 
-  updateUser(user: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/users/${user.id}`, user);
-  }
+  // updateUser(user: any): Observable<any> {
+  //   return this.http.put<any>(`${this.apiUrl}/users/${user.id}`, user);
+  // }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/users/${id}`);
-  }
+  // deleteUser(id: number): Observable<any> {
+  //   return this.http.delete<any>(`${this.apiUrl}/users/${id}`);
+  // }
   
   addInquiry(model: any): Observable<any> {
     return this.http.post<any>(environment.baseURL + "/users/add-inquiry", model);

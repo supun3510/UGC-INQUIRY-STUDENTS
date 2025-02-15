@@ -6,16 +6,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { AuthService } from '../AuthService';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-side-register',
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [RouterModule, MaterialModule, FormsModule, CommonModule,ReactiveFormsModule],
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
   options = this.settings.getOptions();
   registerForm!: FormGroup;
   isSubmitting = false;
+
+  errorMessage: string = '';
+
+  showToast: boolean = false;
+  toastMessage: string = '';
+  toastType: string = '';  // This will hold the type of the toast (success, error, info)]
 
   constructor(private settings: CoreService, private router: Router, private fb: FormBuilder,
     private authService: AuthService) {}
@@ -41,14 +48,34 @@ export class AppSideRegisterComponent {
 
     this.authService.register(userData).subscribe({
       next: (response) => {
-        console.log('User registered successfully:', response);
+        this.showToastMessage('Registration Successful!','success');
         this.router.navigate(['/authentication/login']); // Redirect to login page after registration
       },
       error: (error) => {
+        this.showToastMessage('Registration failed!','error');
         console.error('Registration failed:', error);
+        this.errorMessage = error.error.error;
         this.isSubmitting = false;
       }
     });
+  }
+  onCancel(): void {
+    this.router.navigate(['/authentication/login']);
+  }
+  closeToast(){
+
+  }
+
+   // Method to show success toast
+   showToastMessage(message: string , type: string) {
+    this.toastMessage = message;
+    this.showToast = true;
+    this.toastType = type
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      this.showToast = false;
+      // this.onCancel();
+    }, 5000);
   }
 
 }

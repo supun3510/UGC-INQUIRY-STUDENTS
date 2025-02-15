@@ -5,7 +5,7 @@ import { CoreService } from 'src/app/services/core.service';
   selector: 'app-branding',
   imports: [],
   template: `
-    <a href="/" class="logodark">
+    <a class="logodark">
       <img style="width: 190px; height: 120px;"
         src="./assets/images/logos/ugc-logo.png"
         class="align-middle m-2"

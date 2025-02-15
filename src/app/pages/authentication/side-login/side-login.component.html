@@ -1,81 +1,84 @@
 <div class="blank-layout-container justify-content-center align-items-center bg-light">
-  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+  <div class="position-relative row w-100 h-100 bg-gradient justify-content-center">
     <div class="col-lg-4 d-flex align-items-center">
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
+          
+          <!-- Logo Centered -->
           <div class="text-center">
-            <a [routerLink]="['/dashboard']">
+            <a>
               <img style="width: 230px; height: 150px;" src="./assets/images/logos/ugc-logo.png" class="align-middle m-2" alt="logo" />
             </a>
           </div>
 
-          <!-- <div class="row m-t-24 custom-row">
-            <div class="col-12 col-sm-6">
-              <button mat-stroked-button class="w-100">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/google-icon.svg" alt="google" width="16" class="m-r-8" />
-                  <span>
-                    Sign in with Google
-                  </span>
-                </div>
-              </button>
-            </div>
-            <div class="col-12 col-sm-6">
-              <button mat-stroked-button class="w-100 d-flex align-items-center">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/facebook-icon.svg" alt="facebook" width="40" class="m-r-4" />
-                  Sign in with FB
-                </div>
-              </button>
-            </div>
-          </div> -->
-
-          <!-- <div class="or-border m-t-30">or sign in with</div> -->
-
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="m-t-30">
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Username</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
+
+            <!-- Username (Full Width) -->
+            <mat-form-field appearance="outline" class="w-100 mb-3">
+              <mat-label>Username</mat-label>
               <input matInput formControlName="username" />
+              <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                Username is required.
+              </mat-error>
             </mat-form-field>
           
-            <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
+            <!-- Password (Full Width) -->
+            <mat-form-field appearance="outline" class="w-100 mb-3">
+              <mat-label>Password</mat-label>
               <input matInput type="password" formControlName="password" />
+              <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                Password is required.
+              </mat-error>
             </mat-form-field>
           
-            <div class="d-flex align-items-center m-b-12">
+            <!-- Remember Me & Forgot Password in One Row -->
+            <div class="d-flex align-items-center justify-content-between m-b-12">
               <mat-checkbox color="primary" formControlName="rememberMe">Remember this Device</mat-checkbox>
-              <a [routerLink]="['/forgot-password']" class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14">
+              <a [routerLink]="['/forgot-password']" class="text-primary f-w-600 text-decoration-none f-s-14">
                 Forgot Password?
               </a>
             </div>
           
-            <button mat-flat-button color="primary" class="w-100" type="submit" [disabled]="isSubmitting">
+            <!-- Submit Button -->
+            <button mat-flat-button color="primary" class="w-100" type="submit" [disabled]="loginForm.invalid">
               Sign In
             </button>
           
+            <!-- Error Message -->
             <p *ngIf="errorMessage" class="text-danger m-t-10">{{ errorMessage }}</p>
+          
           </form>
           
-          <span class="d-block f-w-500 text-center m-t-24">Don't have an account?
+
+          <!-- Create Account Link -->
+          <span class="d-block f-w-500 text-center m-t-24">
+            Don't have an account? 
             <a [routerLink]="['/authentication/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Create an account</a>
+              Create an account
+            </a>
           </span>
+
         </mat-card-content>
       </mat-card>
     </div>
   </div>
 </div>
 
-
 <!-- Toast Notification -->
-<div class="toast-container position-fixed top-0 end-0 p-3">
-  <div *ngIf="showToast" class="toast align-items-center text-white border-0 show"  [ngClass]="getToastClass()" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast-container position-fixed top-0 end-0 p-3" style="width: 200px;">
+  <div *ngIf="showToast"
+  [ngClass]="{
+    'bg-success': toastType === 'success', 
+    'bg-danger': toastType === 'error',
+    'bg-warning': toastType === 'warning',
+    'bg-info': toastType === 'info'
+  }" 
+class="toast align-items-center text-white border-0 show"  role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
       <div class="toast-body">
         {{ toastMessage }}
       </div>
-      <button type="button" class="btn-close btn-close-white" (click)="closeToast()" aria-label="Close"></button>
+      <!-- <button type="button" class="btn-close btn-close-white" (click)="closeToast()" aria-label="Close"></button> -->
     </div>
   </div>
 </div>

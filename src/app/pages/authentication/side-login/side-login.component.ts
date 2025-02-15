@@ -46,16 +46,16 @@ export class AppSideLoginComponent {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
-        this.showToastMessage('Record edit successfully','success');
+        this.showToastMessage('Login Successful!','success');
         console.log('Login successful:', response);
         localStorage.setItem('userId',response.user_attributes.id)
         localStorage.setItem('token', response.token); // Store token
         this.router.navigate(['/dashboard']); // Redirect to dashboard
       },
       error: (error) => {
-        this.showToastMessage(error.message,'error');
-        console.error('Login failed:', error);
-        this.errorMessage = 'Invalid username or password';
+        this.showToastMessage('Login failed!','error');
+        console.error('Login failed!', error);
+        this.errorMessage = error.error.status;
         this.isSubmitting = false;
       }
     });

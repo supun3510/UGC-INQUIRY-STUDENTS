@@ -14,7 +14,7 @@ export class DeleteDialogComponent {
     // console.log(data)
   }
   clickfunc(){
-    this.inqurieService.deleteInquiry(this.data).subscribe(
+    this.inqurieService.deleteInquiry(this.data.id).subscribe(
       (res: any) => {
         console.log(res);
         this.onCancel();

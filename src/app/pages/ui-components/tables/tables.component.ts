@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MaterialModule } from 'src/app/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -12,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 // table 1
 export interface productsData {
@@ -63,19 +65,23 @@ const PRODUCT_DATA: productsData[] = [
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   templateUrl: './tables.component.html',
 })
 export class AppTablesComponent {
   displayedColumns: string[] = ['image', 'uname']; // Define table columns
-  dataSource: any[] = []; // Store retrieved user data
-  displayedColumns1: string[] = ['student_name','academic_year', 'phone_number','department','inquiry_type','initial_status', 'created_at' , 'budget'];
+  dataSource1: any[] = []; // Store retrieved user data
+  displayedColumns1: string[] = ['index_number','student_name','academic_year', 'phone_number','department','inquiry_type','forwarded_to','updated_status','created_at','remarks' , 'budget'];
   selectedRow: any = null;
 
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: string = '';  // This will hold the type of the toast (success, error, info)]
-
+  datafiltered: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor(private userService: TableService,
     private tableService: TableService,
     private dialog: MatDialog,
@@ -87,33 +93,51 @@ export class AppTablesComponent {
   }
   ngOnInit(){
     this.getData();
+    
   }
 
   getData(){
-    this.userService.getUsers().subscribe({
+    this.userService.getInqueries().subscribe({
       next: (data) => {
         console.log("get data : ", data)
-        this.dataSource = data.inquiries;
+        this.dataSource1 = data.inquiries;
+
+        
+  this.datafiltered = new MatTableDataSource(this.dataSource1); // Replace ELEMENT_DATA with your actual data array
+  this.datafiltered.paginator = this.paginator;
+  this.datafiltered.sort = this.sort;
+  // this.datafiltered = dataSource2.filterPredicate = (data, filter) => {
+  //   return data.student_name.toLowerCase().includes(filter);
+  // };
+  
       },
       error: (error) => {
         console.error('Error fetching users:', error);
       }
     });
   }
-
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.datafiltered.filter = filterValue;
+  }
+  
 
   // Edit row functionality
   editRow(element: any): void {
     console.log(element, "edit records")
     // Open a dialog or form for editing
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: element
+      data: element,
+      width: '500px', // Adjust width
+      height: '600px', // Adjust height
+      disableClose: true, // Prevent closing when clicking outside
     });
    
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // Save the changes after closing the dialog
-        this.updateRow(result);
+        // this.updateRow(result);
         this.showToastMessage('Record edit successfully','success');
       }
     });
@@ -131,23 +155,23 @@ export class AppTablesComponent {
       if (result) {
         this.showToastMessage('Record delete successfully','error');
         // Save the changes after closing the dialog
-        this.updateRow(result);
+        this.getData(); // Refresh table data
       }
     });
   }
 
   // Update row data
-  updateRow(updatedData: any): void {
-    this.tableService.updateUser(updatedData).subscribe(
-      () => {
-        this.snackBar.open('Record updated successfully', 'Close', { duration: 2000 });
-        this.getData(); // Refresh table data
-      },
-      error => {
-        this.snackBar.open('Error updating record', 'Close', { duration: 2000 });
-      }
-    );
-  }
+  // updateRow(updatedData: any): void {
+  //   this.tableService.updateUser(updatedData).subscribe(
+  //     () => {
+  //       this.snackBar.open('Record updated successfully', 'Close', { duration: 2000 });
+  //       this.getData(); // Refresh table data
+  //     },
+  //     error => {
+  //       this.snackBar.open('Error updating record', 'Close', { duration: 2000 });
+  //     }
+  //   );
+  // }
 
   // Delete row functionality
   // deleteRow(id: number): void {
@@ -168,31 +192,31 @@ export class AppTablesComponent {
   addRow(): void {
     const dialogRef = this.dialog.open(AddDialogComponent, {
       width: '500px', // Adjust width
-      height: '500px', // Adjust height
+      height: '600px', // Adjust height
       disableClose: true, // Prevent closing when clicking outside
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.showToastMessage('Record added successfully','success');
-        this.saveNewRow(result);
+        this.getData(); // Refresh table data
       }
     });
   }
 
-  // Save new row data
-  saveNewRow(newData: any): void {
-    console.log("add data",newData)
-    this.tableService.addUser(newData).subscribe(
-      () => {
-        this.snackBar.open('Record added successfully', 'Close', { duration: 2000 });
-        this.getData(); // Refresh table data
-      },
-      error => {
-        this.snackBar.open('Error adding record', 'Close', { duration: 2000 });
-      }
-    );
-  }
+  // // Save new row data
+  // saveNewRow(newData: any): void {
+  //   console.log("add data",newData)
+  //   this.tableService.addUser(newData).subscribe(
+  //     () => {
+  //       this.snackBar.open('Record added successfully', 'Close', { duration: 2000 });
+  //       this.getData(); // Refresh table data
+  //     },
+  //     error => {
+  //       this.snackBar.open('Error adding record', 'Close', { duration: 2000 });
+  //     }
+  //   );
+  // }
 
 
     

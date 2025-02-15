@@ -6,12 +6,14 @@ import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AddDialogComponent } from './pages/ui-components/tables/add-dialog/add-dialog.component';
 import { AppTablesComponent } from './pages/ui-components/tables/tables.component';
+import { EditDialogComponent } from './pages/ui-components/tables/edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddDialogComponent,
-    AppTablesComponent
+    AppTablesComponent,
+    EditDialogComponent
   ],
   imports: [
     provideAnimations(), // Toastr animations

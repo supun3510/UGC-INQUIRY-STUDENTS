@@ -1,179 +1,130 @@
 <mat-card class="cardWithShadow">
-   <!-- Header Section with Button -->
-   <div class="d-flex justify-content-between align-items-center m-b-16">
-    <mat-card-title></mat-card-title>
-    <button style="margin-top: 20px !important; margin-right: 20px !important; margin-bottom: -40px !important;" mat-raised-button color="primary" (click)="addRow()">
+  
+  
+  
+ 
+ <mat-card-content>
+  
+  <div class="d-flex justify-content-between align-items-center m-b-16">
+    <!-- Search Field -->
+    <mat-form-field appearance="outline" class="w-25">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Enter Student Name or Index Number">
+    </mat-form-field>
+  
+    <!-- Add New Button -->
+    <button mat-raised-button color="primary" (click)="addRow()">
       <mat-icon>add</mat-icon> Add New
     </button>
   </div>
-  <mat-card-content>
-    <mat-card-title>Table</mat-card-title>
+   <div class="table-responsive">
+     <table mat-table [dataSource]="datafiltered" matSort matPaginator class="w-100">
+       
+       <ng-container matColumnDef="index_number">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Index Number</th>
+         <td mat-cell *matCellDef="let element">{{ element.index_number }}</td>
+       </ng-container>
 
-    <div class="table-responsive">
-      <table mat-table [dataSource]="dataSource" class="w-100">
-        <!-- Position Column -->
-        <ng-container matColumnDef="student_name">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-            Student Name
-          </th>
-          <td mat-cell *matCellDef="let element" class="p-l-0">
-            <div class="d-flex align-items-center">
-              <!-- <img [src]="element.imagePath" alt="users" width="60" class="rounded" /> -->
-              <div class="m-l-16">
-                <h6 class="f-s-14 f-w-600">
-                  {{ element.student_name }}
-                </h6>
-              </div>
-            </div>
-          </td>
-        </ng-container>
+       <ng-container matColumnDef="student_name">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Student Name</th>
+         <td mat-cell *matCellDef="let element">{{ element.student_name }}</td>
+       </ng-container>
+       
+       <ng-container matColumnDef="academic_year">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Academic Year</th>
+         <td mat-cell *matCellDef="let element">{{ element.academic_year }}</td>
+       </ng-container>
+       
+       <ng-container matColumnDef="phone_number">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</th>
+         <td mat-cell *matCellDef="let element">{{ element.phone_number }}</td>
+       </ng-container>
+       
+       <ng-container matColumnDef="department">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
+         <td mat-cell *matCellDef="let element">{{ element.department }}</td>
+       </ng-container>
+       
+       <ng-container matColumnDef="inquiry_type">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Inquiry Type</th>
+         <td mat-cell *matCellDef="let element">{{ element.inquiry_type }}</td>
+       </ng-container>
+       
+       <ng-container matColumnDef="forwarded_to">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Forwarded To</th>
+         <td mat-cell *matCellDef="let element">{{ element.forwarded_to }}</td>
+       </ng-container>
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="academic_year">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-            Academic Year
-          </th>
-          <td mat-cell *matCellDef="let element" class="p-l-0">
-            <div class="d-flex align-items-center">
-              <!-- <img [src]="element.imagePath" alt="users" width="60" class="rounded" /> -->
-              <div class="m-l-16">
-                <h6 class="f-s-14 f-w-600">
-                  {{ element.academic_year }}
-                </h6>
-              </div>
-            </div>
-          </td>
-        </ng-container>
+       <!-- <ng-container matColumnDef="initial_status">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Initial Status</th>
+         <td mat-cell *matCellDef="let element">{{ element.initial_status }}</td>
+       </ng-container> -->
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="phone_number">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-            Phone Number
-          </th>
-          <td mat-cell *matCellDef="let element" class="p-l-0">
-            <div class="d-flex align-items-center">
-              <!-- <img [src]="element.imagePath" alt="users" width="60" class="rounded" /> -->
-              <div class="m-l-16">
-                <h6 class="f-s-14 f-w-600">
-                  {{ element.phone_number }}
-                </h6>
-              </div>
-            </div>
-          </td>
-        </ng-container>
+       <ng-container matColumnDef="updated_status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element" 
+            [ngStyle]="{
+              'color': element.updated_status === 'Forwarded' ? 'gray' : 
+                       element.updated_status === 'Resolved' ? 'green' : 
+                       element.updated_status === 'In Progress' ? 'orange' : 'black',
+              'font-weight': 'bold'
+            }">
+          {{ element.updated_status }}
+        </td>
+      </ng-container>
+      
 
-        <!-- Position Column -->
-        <ng-container matColumnDef="department">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-            Department
-          </th>
-          <td mat-cell *matCellDef="let element" class="p-l-0">
-            <div class="d-flex align-items-center">
-              <!-- <img [src]="element.imagePath" alt="users" width="60" class="rounded" /> -->
-              <div class="m-l-16">
-                <h6 class="f-s-14 f-w-600">
-                  {{ element.department }}
-                </h6>
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="inquiry_type">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-            Inquiry Type
-          </th>
-          <td mat-cell *matCellDef="let element" class="p-l-0">
-            <div class="d-flex align-items-center">
-              <!-- <img [src]="element.imagePath" alt="users" width="60" class="rounded" /> -->
-              <div class="m-l-16">
-                <h6 class="f-s-14 f-w-600">
-                  {{ element.inquiry_type }}
-                </h6>
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="initial_status">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
-            Status
-          </th>
-          <td mat-cell *matCellDef="let element">
-            @if(element?.updatedStatus != 'Forwarded') {
-            <span class="bg-light-warning text-warning rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element?.updatedStatus | titlecase }}
-            </span>
-            } @if(element?.updatedStatus == 'Resolved') {
-            <span class="bg-light-error text-error rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element?.updatedStatus | titlecase }}
-            </span>
-            } @if(element.updatedStatus == 'In Progress') {
-            <span class="bg-light-success text-success rounded f-w-600 p-6 p-y-4 f-s-12">
-              {{ element?.updatedStatus | titlecase }}
-            </span>
-            }
-          </td>
-        </ng-container>
-   <!-- Position Column -->
-   <ng-container matColumnDef="created_at">
-    <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">
-      Created At
-    </th>
-    <td mat-cell *matCellDef="let element" class="p-l-0">
-      <div class="d-flex align-items-center">
-        <!-- <img [src]="element.imagePath" alt="users" width="60" class="rounded" /> -->
-        <div class="m-l-16">
-          <h6 class="f-s-14 f-w-600">
-            {{ element.created_at }}
-          </h6>
-        </div>
-      </div>
-    </td>
-  </ng-container>
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="budget">
-          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14"></th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <!-- <button mat-menu-item (click)="addRow()">
-                <mat-icon>add</mat-icon>
-                <span>Add</span>
-              </button> -->
-              <button mat-menu-item (click)="editRow(selectedRow)">
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-              </button>
-              <button mat-menu-item (click)="deleteRow(selectedRow.id)">
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
-            
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-           <!-- Data Rows with Click Event to Select Row -->
-    <tr mat-row *matRowDef="let row; columns: displayedColumns1" (click)="selectRow(row)"></tr>
-      </table>
-    </div>
-  </mat-card-content>
+       <ng-container matColumnDef="created_at">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated At</th>
+         <td mat-cell *matCellDef="let element">{{ element.created_at }}</td>
+       </ng-container>
+       <ng-container matColumnDef="remarks">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarks</th>
+        <td mat-cell *matCellDef="let element">{{ element.remarks }}</td>
+      </ng-container>
+       <ng-container matColumnDef="budget">
+         <th mat-header-cell *matHeaderCellDef>Actions</th>
+         <td mat-cell *matCellDef="let element">
+           <button mat-icon-button [matMenuTriggerFor]="menu">
+             <mat-icon>more_vert</mat-icon>
+           </button>
+           <mat-menu #menu="matMenu">
+             <button mat-menu-item (click)="editRow(element)">
+               <mat-icon>edit</mat-icon>
+               <span>Edit</span>
+             </button>
+             <button mat-menu-item (click)="deleteRow(element)">
+               <mat-icon>delete</mat-icon>
+               <span>Delete</span>
+             </button>
+           </mat-menu>
+         </td>
+       </ng-container>
+       
+       <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+       <tr mat-row *matRowDef="let row; columns: displayedColumns1" (click)="selectRow(row)"></tr>
+     </table>
+     
+     <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+   </div>
+ </mat-card-content>
 </mat-card>
 
 <!-- Toast Notification -->
-<div class="toast-container position-fixed top-0 end-0 p-3">
-  <div *ngIf="showToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        {{ toastMessage }}
-      </div>
-      <button type="button" class="btn-close btn-close-white" (click)="closeToast()" aria-label="Close"></button>
-    </div>
-  </div>
+<div class="toast-container position-fixed top-0 end-0" [ngClass]="{
+  'bg-success': toastType === 'success', 
+  'bg-danger': toastType === 'error',
+  'bg-warning': toastType === 'warning',
+  'bg-info': toastType === 'info'
+}"  style="width: 200px;">
+ <div *ngIf="showToast" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+   <div class="d-flex">
+     <div class="toast-body">
+       {{ toastMessage }}
+     </div>
+     <!-- <button type="button" class="btn-close btn-close-white" (click)="closeToast()" aria-label="Close"></button> -->
+   </div>
+ </div>
 </div>
+
+

@@ -1,122 +1,117 @@
-<div class="card" style="width: 100%; height: 100%; margin-bottom: 0px !important;">
-    <div class="card-body">
-        
-        <h3 style="color: rgb(110, 106, 106);">ADD INQUIRIES</h3>
-        <div class="row">
-            <div class="col-sm-12 mb-4 mt-4">
-                <!-- <label for="studentName">Index Number</label> -->
-                <div class="form-group">
-                    <input class="form-control" type="text" id="indexNumber" placeholder="Index Number">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 mb-4">
-                <div class="form-group">
-                    <!-- <label for="studentName">Student Name</label> -->
-                    <div class="input-group">
-                        <input class="form-control" id="studentName" type="text" placeholder="Student Name">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 mb-4">
-                <div class="form-group">
-                    <!-- <label for="contactNumber">Contact Number</label> -->
-                    <div class="input-group">
-                        <input class="form-control" id="contactNumber" type="text" placeholder="Contact Number">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 mb-4">
-                <div class="form-group">
-                    <!-- <label for="academicYear">Academic Year</label> -->
-                    <div class="input-group">
-                        <input class="form-control" id="academicYear" type="text" placeholder="Academic Year">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 mb-4">
-                <div class="form-group">
-                    <!-- <label for="department">Department</label> -->
-                    <div class="input-group">
-                        <select class="form-control" id="department">
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="Admission">Admission</option>
-                            <option value="Academic">Academic</option>
-                            <option value="HR">HR</option>
-                            <option value="Finance">Finance</option>
-                            <option value="General Admin">General Admin</option>
-                            <option value="personnel">personnel</option>
-                            <option value="MIS">MIS</option>
-                            <option value="Secretariat office">,Secretariat office</option>
-                            <option value="Chairman Office">Chairman Office</option>
-                            <option value="Legal">Legal</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 mb-4">
-                <div class="form-group">
-                    <!-- <label for="inquiryType">Inquiry Type</label> -->
-                    <div class="input-group">
-                        <select class="form-control" id="inquiryType">
-                            <option value="" disabled selected>Select Inquiry Type</option>
-                            <option value="Cutoff">Cutoff</option>
-                            <option value="Normal intake">Normal intake</option>
-                            <option value="Special intake">Special intake</option>
-                            <option value="Disable Intake">Disable Intake</option>
-                            <option value="CGP">CGP</option>
-                            <option value="Late Reg">Late Reg</option>
-                            <option value="Previous Course back">Previous Course back</option>
-                            <option value="email or phone no Change">Demail or phone no Change</option>
-                            <option value="Mahapola">Mahapola</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 mb-4">
-                <div class="form-group">
-                    <!-- <label for="forwarded">Forwarded To</label> -->
-                    <div class="input-group">
-                        <select class="form-control" id="forwarded">
-                            <option value="" disabled selected>Select Forwarded</option>
-                            <option value="(AD 01 - AD 100)">(AD 01 - AD 100) </option>
-                            <option value="Academic">Academic</option>
-                            <option value="HR">HR</option>
-                            <option value="Finance">Finance</option>
-                            <option value="General Admin">General Admin</option>
-                            <option value="personnel">personnel</option>
-                            <option value="MIS">MIS</option>
-                            <option value="Secretariat office">,Secretariat office</option>
-                            <option value="Chairman Office">Chairman Office</option>
-                            <option value="Legal">Legal</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 mb-4">
-                <div class="form-group">
-                    <!-- <label for="remark">Remark</label> -->
-                    <textarea class="form-control" id="remark" rows="2"
-                        placeholder="Enter your remarks here"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="button-container mt-6">
-            <button class="mt-2 btn btn-secondary btn-block cancel-button" (click)="onCancel()" id="cancelButton">Cancel</button>
-            <button class="mt-2 btn btn-primary btn-block confirm-button" (click)="clickfunc()">Confirm</button>
-        </div>
+<div class="blank-layout-container justify-content-center align-items-center bg-light">
+    <div class="position-relative row w-100 h-100 bg-gradient justify-content-center">
+      <div class="d-flex align-items-center">
+        <!-- <mat-card class="cardWithShadow boxed-auth"> -->
+          <mat-card-content class="p-32">
+            <h3 class="text-center text-secondary">ADD INQUIRIES</h3>
+            
+            <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()" class="m-t-30">
+
+              <!-- Index Number (Full Width) -->
+              <mat-form-field appearance="outline" class="w-100 mb-3">
+                <mat-label>Index Number</mat-label>
+                <input matInput formControlName="index_number" />
+                <mat-error *ngIf="inquiryForm.get('index_number')?.hasError('required')">
+                  Index Number is required.
+                </mat-error>
+                <mat-error *ngIf="inquiryForm.get('index_number')?.hasError('minlength')">
+                  Index Number must be at least 7 digits.
+                </mat-error>
+                <mat-error *ngIf="inquiryForm.get('index_number')?.hasError('maxlength')">
+                  Index Number cannot exceed 7 digits.
+                </mat-error>
+              </mat-form-field>
+            
+              <!-- Student Name & Contact Number in One Row -->
+              <div class="row mb-3">
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Student Name</mat-label>
+                  <input matInput formControlName="student_name" />
+                  <mat-error *ngIf="inquiryForm.get('student_name')?.hasError('required')">
+                    Student Name is required.
+                  </mat-error>
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Contact Number</mat-label>
+                  <input matInput formControlName="phone_number" type="number" maxlength="10"/>
+                  <mat-error *ngIf="inquiryForm.get('phone_number')?.hasError('required')">
+                    Contact Number is required.
+                  </mat-error>
+                  <mat-error *ngIf="inquiryForm.get('phone_number')?.hasError('pattern')">
+                    Enter a valid number.
+                  </mat-error>
+                  <mat-error *ngIf="inquiryForm.get('phone_number')?.hasError('maxlength')">
+                    Cannot exceed 10 digits.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            
+              <!-- Academic Year & Department in One Row -->
+              <div class="row mb-3">
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Academic Year</mat-label>
+                  <input matInput formControlName="academic_year" />
+                  <mat-error *ngIf="inquiryForm.get('academic_year')?.hasError('required')">
+                    Academic Year is required.
+                  </mat-error>
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Department</mat-label>
+                  <mat-select formControlName="department">
+                    <mat-option *ngFor="let dept of departments" [value]="dept">{{ dept }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="inquiryForm.get('department')?.hasError('required')">
+                    Department is required.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            
+              <!-- Inquiry Type & Forwarded To in One Row -->
+              <div class="row mb-3">
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Inquiry Type</mat-label>
+                  <mat-select formControlName="inquiry_type">
+                    <mat-option *ngFor="let type of inquiryTypes" [value]="type">{{ type }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="inquiryForm.get('inquiry_type')?.hasError('required')">
+                    Inquiry Type is required.
+                  </mat-error>
+                </mat-form-field>
+            
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Forwarded To</mat-label>
+                  <mat-select formControlName="forwarded_to">
+                    <mat-option *ngFor="let forward of forwardedOptions" [value]="forward">{{ forward }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="inquiryForm.get('forwarded_to')?.hasError('required')">
+                    Forwarded To is required.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            
+              <!-- Remark (Full Width) -->
+              <mat-form-field appearance="outline" class="w-100 mb-3">
+                <mat-label>Remark</mat-label>
+                <textarea matInput formControlName="remarks" rows="2"></textarea>
+                <mat-error *ngIf="inquiryForm.get('remarks')?.hasError('required')">
+                  Remarks are required.
+                </mat-error>
+              </mat-form-field>
+            
+              <!-- Buttons -->
+              <div class="d-flex justify-content-between mt-3">
+                <button mat-stroked-button color="warn" type="button" (click)="onCancel()">Cancel</button>
+                <button mat-flat-button color="primary" type="submit" [disabled]="inquiryForm.invalid">Confirm</button>
+              </div>
+            
+            </form>
+            
+              
+          </mat-card-content>
+        <!-- </mat-card> -->
+      </div>
     </div>
-</div>
-
-
+  </div>
   
