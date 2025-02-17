@@ -15,10 +15,10 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class EditDialogComponent {
   inquiryForm: FormGroup;
-  departments = ['Admission', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Chairman Office', 'Legal', 'Other'];
-  inquiryTypes = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone No Change', 'Mahapola', 'Other'];
-  forwardedOptions = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
-  statusOptions = ['Resolved','In Progress','Forwarded']
+  departments: string[] = ['Admission','UPF', 'Pension', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal', 'Other'];
+  inquiryTypes: string[] = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
+  forwardedOptions: string[] = ['Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal','Secretariat Office','SAS Shalika', 'AS Amanadee', 'AS Vijini','AS Gihani', 'Other'];
+   statusOptions = ['Resolved','In Progress','Forwarded']
   constructor(
     private inquiryService: TableService, 
     private dialogRef: MatDialogRef<EditDialogComponent>,
