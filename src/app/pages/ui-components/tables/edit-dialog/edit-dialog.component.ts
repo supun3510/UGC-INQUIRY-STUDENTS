@@ -17,7 +17,7 @@ export class EditDialogComponent {
   inquiryForm: FormGroup;
   departments = ['Admission', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Chairman Office', 'Legal', 'Other'];
   inquiryTypes = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone No Change', 'Mahapola', 'Other'];
-  forwardedOptions = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone No Change', 'Mahapola', 'Other'];
+  forwardedOptions = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
   statusOptions = ['Resolved','In Progress','Forwarded']
   constructor(
     private inquiryService: TableService, 
@@ -39,7 +39,7 @@ export class EditDialogComponent {
       department: new FormControl(this.data?.department , Validators.required),
       inquiry_type: new FormControl(this.data?.inquiry_type , Validators.required),
       forwarded_to: new FormControl(this.data?.forwarded_to , [Validators.required]),
-      remarks: new FormControl(this.data?.remarks , [Validators.required]),
+      remarks: new FormControl(this.data?.remarks),
       initial_status: new FormControl(this.data?.initial_status),
       updated_status: new FormControl(this.data?.updated_status),
       inquiryTime: new FormControl(this.data?.inquiry_time ),

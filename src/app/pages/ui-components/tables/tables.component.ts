@@ -139,6 +139,7 @@ export class AppTablesComponent {
         // Save the changes after closing the dialog
         // this.updateRow(result);
         this.showToastMessage('Record edit successfully','success');
+        this.getData(); // Refresh table data
       }
     });
   }

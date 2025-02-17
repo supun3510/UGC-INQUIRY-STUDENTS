@@ -50,7 +50,7 @@ export class AppSideLoginComponent {
         console.log('Login successful:', response);
         localStorage.setItem('userId',response.user_attributes.id)
         localStorage.setItem('token', response.token); // Store token
-        this.router.navigate(['/dashboard']); // Redirect to dashboard
+        this.router.navigate(['/ui-components/tables']); // Redirect to dashboard
       },
       error: (error) => {
         this.showToastMessage('Login failed!','error');

@@ -16,10 +16,10 @@ import { MaterialModule } from 'src/app/material.module';
 export class AddDialogComponent implements OnInit {
   inquiryForm: FormGroup;
   // inquiryTypes: any
-  departments: string[] = ['Admission', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Chairman Office', 'Legal', 'Other'];
-  inquiryTypes: string[] = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Change', 'Mahapola', 'Other'];
-  forwardedOptions: string[] = ['(AD 01 - AD 100)', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Chairman Office', 'Legal', 'Other'];
-
+  departments: string[] = ['Admission','UPF', 'Pension', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal', 'Other'];
+  inquiryTypes: string[] = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
+  forwardedOptions: string[] = ['Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal','Secretariat Office','SAS Shalika', 'AS Amanadee', 'AS Vijini','AS Gihani', 'Other'];
+  statusOptions = ['Resolved','In Progress','Forwarded']
   constructor(
     private inquiryService: TableService,
     public dialogRef: MatDialogRef<AddDialogComponent>
@@ -37,7 +37,8 @@ export class AddDialogComponent implements OnInit {
       department: new FormControl('', Validators.required),
       inquiry_type: new FormControl('', Validators.required),
       forwarded_to: new FormControl('', [Validators.required]),
-      remarks: new FormControl('',[Validators.required])
+      updated_status: new FormControl('', Validators.required),
+      remarks: new FormControl('')
 
 
     });
@@ -53,7 +54,7 @@ export class AddDialogComponent implements OnInit {
         ...formData, 
         user_id: localStorage.getItem('userId'), 
         initial_status: "Forwarded", 
-        updated_status: "Forwarded",
+        // updated_status: "Forwarded",
         inquiry_time: new Date(),
         created_at: new Date()
       }).subscribe(

@@ -101,9 +101,6 @@
             <mat-form-field appearance="outline" class="w-50">
               <mat-label>Remark</mat-label>
               <textarea matInput formControlName="remarks" rows="2"></textarea>
-              <mat-error *ngIf="inquiryForm.get('remarks')?.hasError('required')">
-                Remarks are required.
-              </mat-error>
             </mat-form-field>
             </div>
             <!-- Buttons -->

@@ -91,14 +91,27 @@
                 </mat-form-field>
               </div>
             
+              
+              <!-- Inquiry Type & Forwarded To in One Row -->
+              <div class="row mb-3">
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-label>Status</mat-label>
+                  <mat-select formControlName="updated_status">
+                    <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="inquiryForm.get('updated_status')?.hasError('required')">
+                    Inquiry Type is required.
+                  </mat-error>
+                </mat-form-field>
+            
+                
               <!-- Remark (Full Width) -->
-              <mat-form-field appearance="outline" class="w-100 mb-3">
+              <mat-form-field appearance="outline" class="w-50">
                 <mat-label>Remark</mat-label>
                 <textarea matInput formControlName="remarks" rows="2"></textarea>
-                <mat-error *ngIf="inquiryForm.get('remarks')?.hasError('required')">
-                  Remarks are required.
-                </mat-error>
               </mat-form-field>
+              </div>
+              
             
               <!-- Buttons -->
               <div class="d-flex justify-content-between mt-3">
