@@ -32,7 +32,7 @@ export class AppSideRegisterComponent {
       first_name: ['', [Validators.required, Validators.minLength(2)]],
       last_name: ['', [Validators.required, Validators.minLength(2)]],
       username: ['', [Validators.required, Validators.minLength(3)]],
-      phone_number: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      phone_number: ['', [Validators.required, Validators.pattern('^[0-9]{9}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
