@@ -77,7 +77,7 @@
             <!-- Error Message -->
             <p *ngIf="errorMessage" class="text-danger m-t-10">{{ errorMessage }}</p>
             <!-- Buttons -->
-            <div class="d-flex justify-content-between mt-3">
+            <div class="d-flex justify-content-between">
               <button mat-stroked-button color="warn" type="button" (click)="onCancel()">Cancel</button>
               <button mat-flat-button color="primary" type="submit" [disabled]="registerForm.invalid">Sign Up</button>
             </div>

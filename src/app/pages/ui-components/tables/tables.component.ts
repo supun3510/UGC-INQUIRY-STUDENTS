@@ -118,7 +118,9 @@ export class AppTablesComponent {
   }
   
   applyFilter(event: Event) {
+    console.log("event",event)
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    console.log("filterValue",filterValue)
     this.datafiltered.filter = filterValue;
   }
   

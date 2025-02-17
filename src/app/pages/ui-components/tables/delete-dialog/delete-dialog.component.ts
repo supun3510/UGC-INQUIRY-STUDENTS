@@ -16,8 +16,7 @@ export class DeleteDialogComponent {
   clickfunc(){
     this.inqurieService.deleteInquiry(this.data.id).subscribe(
       (res: any) => {
-        console.log(res);
-        this.onCancel();
+        this.dialogRef.close(true);
         // this.snackBar.open('Record updated successfully', 'Close', { duration: 2000 });
         // this.get(); // Refresh table data
       },
