@@ -47,7 +47,7 @@
        
        <ng-container matColumnDef="inquiry_type">
          <th mat-header-cell *matHeaderCellDef mat-sort-header>Inquiry Type</th>
-         <td mat-cell *matCellDef="let element">{{ element.inquiry_type }}</td>
+         <td mat-cell *matCellDef="let element">{{ element.inquiry }}</td>
        </ng-container>
        
        <ng-container matColumnDef="forwarded_to">
@@ -64,12 +64,12 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
         <td mat-cell *matCellDef="let element" 
             [ngStyle]="{
-              'color': element.updated_status === 'Forwarded' ? 'gray' : 
-                       element.updated_status === 'Resolved' ? 'green' : 
-                       element.updated_status === 'In Progress' ? 'orange' : 'black',
+              'color': element.initial_status_1 === 'Forwarded' ? 'gray' : 
+                       element.initial_status_1 === 'Resolved' ? 'green' : 
+                       element.initial_status_1 === 'Rejected' ? 'orange' : 'black',
               'font-weight': 'bold'
             }">
-          {{ element.updated_status }}
+          {{ element.initial_status_1 }}
         </td>
       </ng-container>
       
@@ -89,6 +89,10 @@
              <mat-icon>more_vert</mat-icon>
            </button>
            <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="statusUpdate(element)">
+              <mat-icon>update</mat-icon>
+              <span>Status Update</span>
+            </button>
              <button mat-menu-item (click)="editRow(element)">
                <mat-icon>edit</mat-icon>
                <span>Edit</span>

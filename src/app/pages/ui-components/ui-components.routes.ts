@@ -8,7 +8,8 @@ import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
-
+import { MeToOthersComponent } from './me-to-others/me-to-others.component';
+import { OthersToMeComponent } from './others-to-me/others-to-me.component';
 export const UiComponentsRoutes: Routes = [
   {
     path: '',
@@ -40,6 +41,14 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'tables',
         component: AppTablesComponent,
+      },
+      {
+        path: 'me-to-others',
+        component: MeToOthersComponent,
+      },
+      {
+        path: 'others-to-me',
+        component: OthersToMeComponent,
       },
     ],
   },

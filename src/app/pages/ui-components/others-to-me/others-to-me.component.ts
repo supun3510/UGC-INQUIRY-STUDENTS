@@ -1,64 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MaterialModule } from 'src/app/material.module';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { TableService } from './tableService';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
-import { AddDialogComponent } from './add-dialog/add-dialog.component';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
+import { TableService } from '../tables/tableService';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'environment';      
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { StatusDialogComponent } from './status-dialog/status-dialog.component';
-// table 1
-export interface productsData {
-  id: number;
-  imagePath: string;
-  uname: string;
-  budget: number;
-  priority: string;
-}
-
-const PRODUCT_DATA: productsData[] = [
-  {
-    id: 1,
-    imagePath: 'assets/images/products/product-1.png',
-    uname: 'iPhone 13 pro max-Pacific Blue-128GB storage',
-    budget: 180,
-    priority: 'confirmed',
-  },
-  {
-    id: 2,
-    imagePath: 'assets/images/products/product-2.png',
-    uname: 'Apple MacBook Pro 13 inch-M1-8/256GB-space',
-    budget: 90,
-    priority: 'cancelled',
-  },
-  {
-    id: 3,
-    imagePath: 'assets/images/products/product-3.png',
-    uname: 'PlayStation 5 DualSense Wireless Controller',
-    budget: 120,
-    priority: 'rejected',
-  },
-  {
-    id: 4,
-    imagePath: 'assets/images/products/product-4.png',
-    uname: 'Amazon Basics Mesh, Mid-Back, Swivel Office',
-    budget: 160,
-    priority: 'confirmed',
-  },
-];
-
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { StatusDialogComponent } from '../tables/status-dialog/status-dialog.component';
+import { EditDialogComponent } from '../tables/edit-dialog/edit-dialog.component';
+import { DeleteDialogComponent } from '../tables/delete-dialog/delete-dialog.component';
+import { AddDialogComponent } from '../tables/add-dialog/add-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MaterialModule } from 'src/app/material.module';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 @Component({
-  selector: 'app-tables',
-  imports: [
-    MatTableModule,
+  selector: 'app-others-to-me',
+  imports: [MatTableModule,
     CommonModule,
     MatCardModule,
     MaterialModule,
@@ -66,23 +28,25 @@ const PRODUCT_DATA: productsData[] = [
     MatMenuModule,
     MatButtonModule,
     MatPaginatorModule,
-    MatSortModule,
-  ],
-  templateUrl: './tables.component.html',
+    MatSortModule,],
+  templateUrl: './others-to-me.component.html',
+  styleUrl: './others-to-me.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]  // Add this line
 })
-export class AppTablesComponent {
+export class OthersToMeComponent {
+  private apiUrl = environment.baseURL + '/users/others-to-me';
   displayedColumns: string[] = ['image', 'uname']; // Define table columns
   dataSource1: any[] = []; // Store retrieved user data
   displayedColumns1: string[] = ['index_number','student_name','academic_year', 'phone_number','department','inquiry_type','forwarded_to','updated_status','created_at','remarks' , 'budget'];
   selectedRow: any = null;
-
+  forwordedList : any[] = []
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: string = '';  // This will hold the type of the toast (success, error, info)]
   datafiltered: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @Input() childData: any[] = [];
+  // @Input() childData: any[] = [];
   constructor(private userService: TableService,
     private tableService: TableService,
     private dialog: MatDialog,
@@ -93,19 +57,38 @@ export class AppTablesComponent {
     this.selectedRow = row;
   }
   ngOnInit(){
-    alert('tables')
+    // alert('tables')
     this.getData();
     // this.dataSource1 = this.childData;
+
+    this.getUsersToForword()
     
   }
+  getUsersToForword(){
+    this.userService.getUsersToForword().subscribe({
+      next: (data) => {
+        console.log("get data : ", data)
+        this.forwordedList = data.admin_list;
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
+      }
+    });
+  }
 
+    // Method to get the user name by their ID or identifier
+    getForwardedUserName(forwardedId: any): string {
+      const user = this.forwordedList.find(user => user.id == forwardedId); 
+      console.log("user",user)// Assuming 'id' is the key
+      return user ? user.first_name + " " + user.last_name : 'Unknown';  // Return user name or 'Unknown' if not found
+    }
   getData(){
-    this.userService.getInqueries().subscribe({
+    this.userService.getInqueriesOthersToMe().subscribe({
       next: (data) => {
         console.log("get data : ", data)
         this.dataSource1 = data.inquiries;
 
-        
+          
   this.datafiltered = new MatTableDataSource(this.dataSource1); // Replace ELEMENT_DATA with your actual data array
   this.datafiltered.paginator = this.paginator;
   this.datafiltered.sort = this.sort;

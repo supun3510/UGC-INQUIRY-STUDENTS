@@ -11,3 +11,26 @@
     flex: 0 0 auto;  /* Prevent buttons from growing to take available space */
   }
   
+  .upload-card {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .upload-container {
+    margin: 15px 0;
+  }
+  
+  mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  button {
+    margin-top: 15px;
+  }
+  
+  
+  

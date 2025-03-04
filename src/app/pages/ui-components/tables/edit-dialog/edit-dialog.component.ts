@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { environment } from 'environment';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -19,12 +20,16 @@ export class EditDialogComponent {
   inquiryTypes: string[] = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
   forwardedOptions: string[] = ['Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal','Secretariat Office','SAS Shalika', 'AS Amanadee', 'AS Vijini','AS Gihani', 'Other'];
    statusOptions = ['Resolved','In Progress','Forwarded']
+   selectedFiles: File[] = [];
+   baseURL = environment.baseURL;
+   forwordedList : any[] = []
   constructor(
     private inquiryService: TableService, 
     private dialogRef: MatDialogRef<EditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+  
   ngOnInit(): void {
     // Initialize form group with validation
     this.inquiryForm = new FormGroup({
@@ -37,16 +42,20 @@ export class EditDialogComponent {
       ]),
       academic_year: new FormControl(this.data?.academic_year , Validators.required),
       department: new FormControl(this.data?.department , Validators.required),
-      inquiry_type: new FormControl(this.data?.inquiry_type , Validators.required),
+      inquiry: new FormControl(this.data?.inquiry , Validators.required),
       forwarded_to: new FormControl(this.data?.forwarded_to , [Validators.required]),
       remarks: new FormControl(this.data?.remarks),
-      initial_status: new FormControl(this.data?.initial_status),
+      initial_status_1: new FormControl(this.data?.initial_status_1),
       updated_status: new FormControl(this.data?.updated_status),
       inquiryTime: new FormControl(this.data?.inquiry_time ),
       createdAt: new FormControl(this.data?.created_at ),
       updatedAt: new FormControl(this.data?.updated_at),
-      user_id: new FormControl(this.data?.user_id )
+      user_id: new FormControl(this.data?.user_id ),
+      nic_number: new FormControl(this.data?.nic_number),
+      student_email: new FormControl(this.data?.student_email)
     });
+
+    this.selectedFiles = this.data?.attachment_urls || [];
   }
 
   // Submit or update form data
@@ -114,4 +123,16 @@ const formData = {
 onCancel(): void {
   this.dialogRef.close(false);
 }
+getUsersToForword(){
+  this.inquiryService.getUsersToForword().subscribe({
+    next: (data) => {
+      console.log("get data : ", data)
+      this.forwordedList = data.admin_list;
+    },
+    error: (error) => {
+      console.error('Error fetching users:', error);
+    }
+  });
+}
+
 }

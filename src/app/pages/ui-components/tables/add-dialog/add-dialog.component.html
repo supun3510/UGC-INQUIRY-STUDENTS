@@ -46,7 +46,30 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-            
+             <!-- Student Name & Contact Number in One Row -->
+             <div class="row mb-3">
+              <mat-form-field appearance="outline" class="w-50">
+                <mat-label>NIC Number</mat-label>
+                <input matInput formControlName="nic_number" />
+                <mat-error *ngIf="inquiryForm.get('nic_number')?.hasError('required')">
+                  NIC Number is required.
+                </mat-error>
+              </mat-form-field>
+          
+              <mat-form-field appearance="outline" class="w-50">
+                <mat-label>Student Email</mat-label>
+                <input matInput formControlName="student_email" type="email"/>
+                <mat-error *ngIf="inquiryForm.get('student_email')?.hasError('required')">
+                  Student Email is required.
+                </mat-error>
+                <mat-error *ngIf="inquiryForm.get('phone_number')?.hasError('pattern')">
+                  Enter a valid number.
+                </mat-error>
+                <mat-error *ngIf="inquiryForm.get('phone_number')?.hasError('maxlength')">
+                  Cannot exceed 10 digits.
+                </mat-error>
+              </mat-form-field>
+            </div>
               <!-- Academic Year & Department in One Row -->
               <div class="row mb-3">
                 <mat-form-field appearance="outline" class="w-50">
@@ -72,46 +95,96 @@
               <div class="row mb-3">
                 <mat-form-field appearance="outline" class="w-50">
                   <mat-label>Inquiry Type</mat-label>
-                  <mat-select formControlName="inquiry_type">
+                  <mat-select formControlName="inquiry">
                     <mat-option *ngFor="let type of inquiryTypes" [value]="type">{{ type }}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="inquiryForm.get('inquiry_type')?.hasError('required')">
+                  <mat-error *ngIf="inquiryForm.get('inquiry')?.hasError('required')">
                     Inquiry Type is required.
                   </mat-error>
                 </mat-form-field>
             
-                <mat-form-field appearance="outline" class="w-50">
+              <!-- Remark (Full Width) -->
+              <mat-form-field appearance="outline" class="w-50">
+                <mat-label>Remark</mat-label>
+                <textarea matInput formControlName="remarks" rows="2"></textarea>
+              </mat-form-field>
+                <!-- <mat-form-field appearance="outline" class="w-50">
                   <mat-label>Forwarded To</mat-label>
                   <mat-select formControlName="forwarded_to">
-                    <mat-option *ngFor="let forward of forwardedOptions" [value]="forward">{{ forward }}</mat-option>
+                    <mat-option *ngFor="let forward of forwordedList" [value]="forward.id">{{ forward.first_name + " " + forward.last_name }}</mat-option>
                   </mat-select>
                   <mat-error *ngIf="inquiryForm.get('forwarded_to')?.hasError('required')">
                     Forwarded To is required.
                   </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
               </div>
             
               
               <!-- Inquiry Type & Forwarded To in One Row -->
               <div class="row mb-3">
                 <mat-form-field appearance="outline" class="w-50">
-                  <mat-label>Status</mat-label>
-                  <mat-select formControlName="updated_status">
+                  <mat-label>Status 1</mat-label>
+                  <mat-select formControlName="initial_status_1">
                     <mat-option *ngFor="let status of statusOptions" [value]="status">{{ status }}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="inquiryForm.get('updated_status')?.hasError('required')">
+                  <mat-error *ngIf="inquiryForm.get('initial_status_1')?.hasError('required')">
                     Inquiry Type is required.
                   </mat-error>
                 </mat-form-field>
+                
+                <mat-form-field appearance="outline"  *ngIf="inquiryForm.get('initial_status_1')?.value === 'Forwarded'" class="w-50">
+                  <mat-label>Forwarded To</mat-label>
+                  <mat-select formControlName="forwarded_to">
+                    <mat-option *ngFor="let forward of forwordedList" [value]="forward.id">{{ forward.first_name + " " + forward.last_name }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="inquiryForm.get('forwarded_to')?.hasError('required')">
+                    Forwarded To is required.
+                  </mat-error>
+                </mat-form-field>
+                <!-- Status 2 (Enabled only if Status 1 is "Forwarded") -->
+                <!-- <mat-form-field *ngIf="inquiryForm.get('initial_status_1')?.value === 'Forwarded'" appearance="outline" class="w-50">
+                  <mat-label>Status 2</mat-label>
+                  <mat-select formControlName="forword_status">
+                    <mat-option *ngFor="let forword of forwordedList" [value]="forword">
+                      {{ forword.first_name + " " + forword.last_name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="inquiryForm.get('forword_status')?.hasError('required')">
+                    Forwarded To is required.
+                  </mat-error>
+                </mat-form-field> -->
+                
             
                 
-              <!-- Remark (Full Width) -->
-              <mat-form-field appearance="outline" class="w-50">
-                <mat-label>Remark</mat-label>
-                <textarea matInput formControlName="remarks" rows="2"></textarea>
-              </mat-form-field>
               </div>
               
+              <div>
+                <mat-card class="upload-card">
+                  <mat-card-title>Upload Documents</mat-card-title>
+                
+                  <!-- Custom File Upload Button -->
+                  <div class="upload-container">
+                    <input type="file" multiple (change)="onFileSelected($event)" #fileInput hidden />
+
+                    <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+                      <mat-icon>cloud_upload</mat-icon> Choose Files
+                    </button>
+                  </div>
+                
+                  <!-- Selected Files List -->
+                  <mat-list *ngIf="selectedFiles.length > 0">
+                    <mat-list-item *ngFor="let file of selectedFiles; let i = index">
+                      <mat-icon>insert_drive_file</mat-icon>
+                      <span>{{ file.name }} ({{ file.size / 1000 }} KB)</span>
+                      <button mat-icon-button color="warn" (click)="removeFile(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </mat-list-item>
+                  </mat-list>
+                
+                </mat-card>
+                
+              </div>
             
               <!-- Buttons -->
               <div class="d-flex justify-content-between mt-3">

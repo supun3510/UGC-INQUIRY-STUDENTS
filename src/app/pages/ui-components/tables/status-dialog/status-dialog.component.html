@@ -1,0 +1,37 @@
+<!-- <div class="blank-layout-container justify-content-center align-items-center bg-light"> -->
+    <div class="position-relative row w-100 h-100 bg-gradient justify-content-center">
+        <div class="d-flex align-items-center">
+          <!-- <mat-card class="cardWithShadow boxed-auth" style="margin-bottom: 10px !important;margin-right: -12px !important;margin-top: 10px;"> -->
+            <mat-card-content>
+              <h3 class="text-center text-secondary mb-4">UPDATE STATUS</h3>
+              
+              <div class="dialog-container">
+                <!-- <h2 class="dialog-title">UPDATE STATUS</h2> -->
+                
+                <form [formGroup]="inquiryForm" (ngSubmit)="onSubmit()" class="status-form">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="status-field">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="initial_status_2">
+                                <mat-option *ngFor="let forward of statusOptions" [value]="forward">{{ forward }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="inquiryForm.get('initial_status_2')?.hasError('required')" class="error-message">
+                                Status is required.
+                            </mat-error>
+                        </mat-form-field>
+                        
+                        <button mat-flat-button color="primary" type="submit"  [disabled]="inquiryForm.invalid" class="confirm-button">
+                            Confirm
+                        </button>
+                    </div>
+
+                </form>
+              </div>
+              
+                
+            </mat-card-content>
+          <!-- </mat-card> -->
+        </div>
+      </div>
+    <!-- </div> -->
+    

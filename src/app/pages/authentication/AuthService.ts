@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'environment';
 
@@ -17,7 +17,12 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
+    var token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     console.log("registration : " ,userData)
-    return this.http.post<any>(this.apiUrl + '/sign-up', userData);
+    return this.http.post<any>(this.apiUrl + '/sign-up', userData , {headers});
   }
 }

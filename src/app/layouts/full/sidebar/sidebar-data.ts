@@ -243,9 +243,14 @@ export const navItems: NavItem[] = [
   //   route: '/ui-components/forms',
   // },
   {
-    displayName: 'Tables',
+    displayName: 'Me To Others',
     iconName: 'table',
-    route: '/ui-components/tables',
+    route: '/ui-components/me-to-others',
+  },
+  {
+    displayName: 'Others To Me',
+    iconName: 'table',
+    route: '/ui-components/others-to-me',
   },
   // {
   //   displayName: 'Expansion Panel',

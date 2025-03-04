@@ -49,7 +49,7 @@ export class AppSideLoginComponent {
         this.showToastMessage('Login Successful!','success');
         console.log('Login successful:', response);
         localStorage.setItem('userId',response.user_attributes.id)
-        localStorage.setItem('token', response.token); // Store token
+        localStorage.setItem('token', response.user_attributes.token); // Store token
         this.router.navigate(['/ui-components/tables']); // Redirect to dashboard
       },
       error: (error) => {
