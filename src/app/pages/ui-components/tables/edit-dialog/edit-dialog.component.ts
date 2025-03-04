@@ -61,15 +61,24 @@ export class EditDialogComponent {
   // Submit or update form data
   onSubmit(): void {
     if (this.inquiryForm.valid) {
-      const formData = this.inquiryForm.value;
-      console.log('Form Submitted:', formData);
+      const formData = new FormData();
+       formData.append('nic_number',this.inquiryForm.value.nic_number);
+      //  formData.append('student_email',this.inquiryForm.value.student_email);
+       formData.append('index_number',this.inquiryForm.value.index_number); 
+       formData.append('student_name',this.inquiryForm.value.student_name);
+       formData.append('academic_year',this.inquiryForm.value.academic_year);
+       formData.append('phone_number',this.inquiryForm.value.phone_number);
+       formData.append('department',this.inquiryForm.value.department);
+       formData.append('inquiry',this.inquiryForm.value.inquiry);
+       formData.append('remarks',this.inquiryForm.value.remarks);
+       formData.append('id',this.data.id);
 
       if (this.data) {
         // Assuming this.data.id contains the record ID you want to update
-const formData = {
-  ...this.inquiryForm.value, // Get the form values
-  id: this.data.id // Add the id to the formData
-};
+// const formData = {
+//   ...this.inquiryForm.value, // Get the form values
+//   id: this.data.id // Add the id to the formData
+// };
         this.inquiryService.editInquiry(this.data.id, formData).subscribe(
           (res: any) => {
             console.log('Update Success:', res);

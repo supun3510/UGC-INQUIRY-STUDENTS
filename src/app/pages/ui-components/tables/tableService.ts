@@ -77,7 +77,7 @@ export class TableService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post<any>(environment.baseURL + `/users/add-inquiry`, model, {headers});
+    return this.http.post<any>(environment.baseURL + `/users/update/inquiry`, model, {headers});
 }
 
 deleteInquiry(id: any): Observable<any> {

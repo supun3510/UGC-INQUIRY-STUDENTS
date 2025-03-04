@@ -40,8 +40,8 @@ export class AddDialogComponent implements OnInit {
       academic_year: new FormControl('', Validators.required),
       department: new FormControl('', Validators.required),
       inquiry: new FormControl('', Validators.required),
-      forwarded_to: new FormControl('', [Validators.required]),
-      initial_status_1: new FormControl('', Validators.required),
+      forwarded_to: new FormControl(''),
+      initial_status_1: new FormControl(''),
       forword_status: new FormControl(''),
       nic_number: new FormControl('', Validators.required),
       student_email: new FormControl('', [Validators.required, Validators.email]),
@@ -83,8 +83,8 @@ export class AddDialogComponent implements OnInit {
     // formData.append('inquiry', 'TEXT EXAMPLE');
     // formData.append('remarks', 'remarks exp');
     // formData.append('initial_status_1', 'Resolved');
-    formData.append('initial_status_2', 'Resolved');
-    // formData.append('forwarded_to', '1');
+    // formData.append('initial_status_2', 'Resolved');
+    formData.append('forwarded_to', '1');
 
     // ✅ Debugging: Check FormData contents before sending
     // console.log([...formData.entries()]);
@@ -94,6 +94,7 @@ export class AddDialogComponent implements OnInit {
       (response) => {
         console.log('Files & Data uploaded successfully', response);
         this.selectedFiles = []; // Reset files after upload
+        this.dialogRef.close(true);
       },
       (error) => {
         console.error('Error uploading files & form data', error);

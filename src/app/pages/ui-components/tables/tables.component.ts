@@ -93,7 +93,7 @@ export class AppTablesComponent {
     this.selectedRow = row;
   }
   ngOnInit(){
-    alert('tables')
+    // alert('tables')
     this.getData();
     // this.dataSource1 = this.childData;
     

@@ -243,15 +243,28 @@ export const navItems: NavItem[] = [
   //   route: '/ui-components/forms',
   // },
   {
+    displayName: 'All Inquiries',
+    iconName: 'table',
+    route: '/ui-components/tables',
+  },
+  {
     displayName: 'Me To Others',
     iconName: 'table',
     route: '/ui-components/me-to-others',
   },
-  {
-    displayName: 'Others To Me',
-    iconName: 'table',
-    route: '/ui-components/others-to-me',
-  },
+    {
+      displayName: 'Others To Me',
+      iconName: 'table',
+      route: '/ui-components/others-to-me',
+    },
+    {
+      navCap: 'USER SETTINGS',
+    },
+    {
+      displayName: 'User List',
+      iconName: 'table',
+      route: '/ui-components/user-list',
+    },
   // {
   //   displayName: 'Expansion Panel',
   //   iconName: 'layout-bottombar-inactive',

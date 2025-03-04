@@ -10,6 +10,7 @@ import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { MeToOthersComponent } from './me-to-others/me-to-others.component';
 import { OthersToMeComponent } from './others-to-me/others-to-me.component';
+import { UserListComponent } from './user-list/user-list.component';
 export const UiComponentsRoutes: Routes = [
   {
     path: '',
@@ -49,6 +50,10 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'others-to-me',
         component: OthersToMeComponent,
+      },
+      {
+        path: 'user-list',
+        component: UserListComponent,
       },
     ],
   },
