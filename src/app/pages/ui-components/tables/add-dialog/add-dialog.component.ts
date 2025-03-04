@@ -84,6 +84,10 @@ export class AddDialogComponent implements OnInit {
     // formData.append('remarks', 'remarks exp');
     // formData.append('initial_status_1', 'Resolved');
     formData.append('initial_status_2', '');
+    if(this.inquiryForm.value.forwarded_to == null || this.inquiryForm.value.forwarded_to == ''){
+      formData.append('forwarded_to', '1');
+    }
+
     // formData.append('forwarded_to', '1');
 
     // ✅ Debugging: Check FormData contents before sending
