@@ -11,6 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MaterialModule } from 'src/app/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { AddDialogComponent } from '../tables/add-dialog/add-dialog.component';
+import { AppSideRegisterComponent } from '../../authentication/side-register/side-register.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-user-list',
   imports: [ MatTableModule,
@@ -28,7 +31,7 @@ import { MatMenuModule } from '@angular/material/menu';
 export class UserListComponent {
   dataSource1: any[] = [];
   datafiltered: any;
-  displayedColumns1: string[] = ['index_number','student_name','academic_year', 'phone_number','department','inquiry_type','forwarded_to','updated_status','created_at','remarks' , 'budget'];
+  displayedColumns1: string[] = ['Email','First Name','Last Name', 'Phone Number','Username'];
   selectedRow: any = null;
 
   showToast: boolean = false;
@@ -41,15 +44,34 @@ export class UserListComponent {
     private snackBar: MatSnackBar  
   ) {}
 
+  ngOnInit(){
+    this.getData()
+  }
   selectRow(row: any): void {
     this.selectedRow = row;
   }
+
+  addUser(){
+    // Open a dialog for adding new user
+    const dialogRef = this.dialog.open(AppSideRegisterComponent, {
+      width: '500px',
+      disableClose: true // Prevent closing when clicking outside
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.dialogRef.close(true);
+        // Refresh the user list after adding
+        this.getData();
+      }
+    });
+  }
   
   getData(){
-    this.userService.getInqueries().subscribe({
+    this.userService.getUsersToForword().subscribe({
       next: (data) => {
         console.log("get data : ", data)
-        this.dataSource1 = data.inquiries;
+        this.dataSource1 = data.admin_list;
 
         
   this.datafiltered = new MatTableDataSource(this.dataSource1); // Replace ELEMENT_DATA with your actual data array

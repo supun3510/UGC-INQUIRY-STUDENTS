@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { AuthService } from '../AuthService';
 import { CommonModule } from '@angular/common';
 
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-side-register',
   imports: [RouterModule, MaterialModule, FormsModule, CommonModule,ReactiveFormsModule],
@@ -25,7 +26,7 @@ export class AppSideRegisterComponent {
   toastType: string = '';  // This will hold the type of the toast (success, error, info)]
 
   constructor(private settings: CoreService, private router: Router, private fb: FormBuilder,
-    private authService: AuthService) {}
+    private authService: AuthService, private dialogRef: MatDialogRef<AppSideRegisterComponent>) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -48,8 +49,9 @@ export class AppSideRegisterComponent {
 
     this.authService.register(userData).subscribe({
       next: (response) => {
+        this.dialogRef.close(true);
         this.showToastMessage('Registration Successful!','success');
-        this.router.navigate(['/authentication/login']); // Redirect to login page after registration
+        this.router.navigate(['/ui-components/user-list']); // Redirect to login page after registration
       },
       error: (error) => {
         this.showToastMessage('Registration failed!','error');
@@ -60,7 +62,8 @@ export class AppSideRegisterComponent {
     });
   }
   onCancel(): void {
-    this.router.navigate(['/authentication/login']);
+    // this.router.navigate(['/ui-components/user-list']);
+    this.dialogRef.close(false);
   }
   closeToast(){
 

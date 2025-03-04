@@ -37,7 +37,7 @@ export class OthersToMeComponent {
   private apiUrl = environment.baseURL + '/users/others-to-me';
   displayedColumns: string[] = ['image', 'uname']; // Define table columns
   dataSource1: any[] = []; // Store retrieved user data
-  displayedColumns1: string[] = ['index_number','student_name','academic_year', 'phone_number','department','inquiry_type','forwarded_to','updated_status','created_at','remarks' , 'budget'];
+  displayedColumns1: string[] = ['index_number','student_name','academic_year', 'phone_number','department','inquiry_type','forwarded_to','updated_status', 'initial_status_2','created_at','remarks' , 'budget'];
   selectedRow: any = null;
   forwordedList : any[] = []
   showToast: boolean = false;

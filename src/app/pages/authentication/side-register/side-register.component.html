@@ -1,13 +1,10 @@
-<div class="blank-layout-container justify-content-center align-items-center bg-light">
+<!-- <div class="blank-layout-container justify-content-center align-items-center bg-light">
   <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
-    <div class="col-lg-4 d-flex align-items-center">
-      <mat-card style="margin-top: -30px; margin-bottom: -30px;" class="cardWithShadow boxed-auth">
+    <div class="col-lg-4 d-flex align-items-center"> -->
+      <mat-card style="margin-top: -2px; margin-bottom: -2px;">
         <mat-card-content class="p-32">
-          <div class="text-center">
-            <a>
-              <img style="width: 190px; height: 120px;" src="./assets/images/logos/ugc-logo.png" class="align-middle m-2" alt="logo" />
-            </a>
-          </div>
+          <h3 class="text-center text-secondary">ADD NEW USER</h3>
+            
 
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="m-t-30">
 
@@ -86,31 +83,8 @@
           
           
           
-          <span class="d-block f-w-500 text-center m-t-24">Already have an Account?
-            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Sign In</a>
-          </span>
         </mat-card-content>
       </mat-card>
-    </div>
+    <!-- </div>
   </div>
-</div>
-
-<!-- Toast Notification -->
-<div class="toast-container position-fixed top-0 end-0 p-3" style="width: 200px;">
-  <div *ngIf="showToast"
-  [ngClass]="{
-    'bg-success': toastType === 'success', 
-    'bg-danger': toastType === 'error',
-    'bg-warning': toastType === 'warning',
-    'bg-info': toastType === 'info'
-  }" 
-class="toast align-items-center text-white border-0 show"  role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        {{ toastMessage }}
-      </div>
-      <!-- <button type="button" class="btn-close btn-close-white" (click)="closeToast()" aria-label="Close"></button> -->
-    </div>
-  </div>
-</div>
+</div> -->
