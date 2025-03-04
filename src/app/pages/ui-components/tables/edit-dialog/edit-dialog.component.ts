@@ -61,25 +61,21 @@ export class EditDialogComponent {
   // Submit or update form data
   onSubmit(): void {
     if (this.inquiryForm.valid) {
-      const formData = new FormData();
-       formData.append('nic_number',this.inquiryForm.value.nic_number);
-      //  formData.append('student_email',this.inquiryForm.value.student_email);
-       formData.append('index_number',this.inquiryForm.value.index_number); 
-       formData.append('student_name',this.inquiryForm.value.student_name);
-       formData.append('academic_year',this.inquiryForm.value.academic_year);
-       formData.append('phone_number',this.inquiryForm.value.phone_number);
-       formData.append('department',this.inquiryForm.value.department);
-       formData.append('inquiry',this.inquiryForm.value.inquiry);
-       formData.append('remarks',this.inquiryForm.value.remarks);
-       formData.append('id',this.data.id);
+      // const formData = new FormData();
+      var model = {
+        nic_number:this.inquiryForm.value.nic_number,
+        student_email:this.inquiryForm.value.student_email,
+        index_number:this.inquiryForm.value.index_number, 
+        student_name:this.inquiryForm.value.student_name,
+        academic_year:this.inquiryForm.value.academic_year,
+        phone_number:this.inquiryForm.value.phone_number,
+        department:this.inquiryForm.value.department,
+        inquiry:this.inquiryForm.value.inquiry,
+        remarks:this.inquiryForm.value.remarks,
+        id:this.data.id
+      }
 
-      if (this.data) {
-        // Assuming this.data.id contains the record ID you want to update
-// const formData = {
-//   ...this.inquiryForm.value, // Get the form values
-//   id: this.data.id // Add the id to the formData
-// };
-        this.inquiryService.editInquiry(this.data.id, formData).subscribe(
+        this.inquiryService.editInquiry(this.data.id, model).subscribe(
           (res: any) => {
             console.log('Update Success:', res);
             // alert('Data updated successfully!');
@@ -90,28 +86,8 @@ export class EditDialogComponent {
             // alert('Failed to update data.');
           }
         );
-      } else {
-        this.inquiryService.addInquiry({ 
-          ...formData, 
-          id:this.data.id,
-          user_id: localStorage.getItem('userId'), 
-          initial_status: "Forwarded", 
-          updated_status: "Forwarded" 
-        }).subscribe(
-          (res: any) => {
-            console.log('Add Success:', res);
-            // alert('Data saved successfully!');
-            this.dialogRef.close(true);
-          },
-          (error) => {
-            console.error('Add Error:', error);
-            // alert('Failed to save data.');
-          }
-        );
       }
-    } else {
-      // alert('Please fill in all required fields.');
-    }
+    
     
 
 

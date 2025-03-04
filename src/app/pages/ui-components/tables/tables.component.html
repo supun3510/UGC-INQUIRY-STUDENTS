@@ -52,7 +52,7 @@
        
        <ng-container matColumnDef="forwarded_to">
          <th mat-header-cell *matHeaderCellDef mat-sort-header>Forwarded To</th>
-         <td mat-cell *matCellDef="let element">{{ element.forwarded_to }}</td>
+         <td mat-cell *matCellDef="let element">{{ getForwardedUserName(element.forwarded_to) }}</td>
        </ng-container>
 
        <!-- <ng-container matColumnDef="initial_status">

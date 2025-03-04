@@ -83,6 +83,7 @@ export class AppTablesComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Input() childData: any[] = [];
+  forwordedList : any[] = []
   constructor(private userService: TableService,
     private tableService: TableService,
     private dialog: MatDialog,
@@ -99,6 +100,12 @@ export class AppTablesComponent {
     
   }
 
+    // Method to get the user name by their ID or identifier
+    getForwardedUserName(forwardedId: any): string {
+      const user = this.forwordedList.find(user => user.id == forwardedId); 
+      console.log("user",user)// Assuming 'id' is the key
+      return user ? user.email : '-';  // Return user name or 'Unknown' if not found
+    }
   getData(){
     this.userService.getInqueries().subscribe({
       next: (data) => {

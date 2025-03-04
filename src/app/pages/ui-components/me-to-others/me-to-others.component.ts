@@ -69,7 +69,7 @@ export class MeToOthersComponent {
     getForwardedUserName(forwardedId: any): string {
       const user = this.forwordedList.find(user => user.id == forwardedId); 
       console.log("user",user)// Assuming 'id' is the key
-      return user ? user.first_name + " " + user.last_name : 'Unknown';  // Return user name or 'Unknown' if not found
+      return user ? user.email : '-';  // Return user name or 'Unknown' if not found
     }
   getData(){
     this.userService.getInqueriesMeToOthers().subscribe({

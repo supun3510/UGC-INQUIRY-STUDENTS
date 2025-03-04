@@ -61,12 +61,13 @@ export class StatusDialogComponent implements OnInit {
 
   onSubmit() {
     if (this.inquiryForm.valid) {
-      const formData = new FormData();
-      formData.append('id', this.data?.id);
-      formData.append('initial_status_2', this.inquiryForm.value.initial_status_2);
+      const model = {
+        id: this.data?.id,
+        initial_status_2: this.inquiryForm.value.initial_status_2
+      }
       
 
-      this.inqurieService.updateStatus(formData).subscribe({
+      this.inqurieService.updateStatus(model).subscribe({
         next: (res: any) => {
           this.dialogRef.close(true);
         },

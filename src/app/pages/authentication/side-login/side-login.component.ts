@@ -50,6 +50,7 @@ export class AppSideLoginComponent {
         console.log('Login successful:', response);
         localStorage.setItem('userId',response.user_attributes.id)
         localStorage.setItem('token', response.user_attributes.token); // Store token
+        localStorage.setItem('role', response.user_attributes.role);
         this.router.navigate(['/ui-components/me-to-others']); // Redirect to dashboard
       },
       error: (error) => {
