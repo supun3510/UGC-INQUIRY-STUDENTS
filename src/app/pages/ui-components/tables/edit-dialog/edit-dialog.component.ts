@@ -31,6 +31,7 @@ export class EditDialogComponent {
 
   
   ngOnInit(): void {
+    this.getUsersToForword()
     // Initialize form group with validation
     this.inquiryForm = new FormGroup({
 
