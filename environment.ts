@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    baseURL: 'https://ebcb-123-231-9-44.ngrok-free.app',
+    baseURL: 'https://1021-123-231-9-44.ngrok-free.app',
   };
   
   

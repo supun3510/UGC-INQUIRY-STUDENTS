@@ -50,10 +50,6 @@
             <td mat-cell *matCellDef="let element">{{ element.inquiry }}</td>
           </ng-container>
           
-          <ng-container matColumnDef="forwarded_to">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Forwarded To</th>
-            <td mat-cell *matCellDef="let element"> {{ getForwardedUserName(element.forwarded_to) }}</td>
-          </ng-container>
    
           <!-- <ng-container matColumnDef="initial_status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Initial Status</th>
@@ -72,6 +68,12 @@
              {{ element.initial_status_1 }}
            </td>
          </ng-container>
+
+         
+         <ng-container matColumnDef="forwarded_to">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Forwarded To</th>
+          <td mat-cell *matCellDef="let element"> {{ getForwardedUserName(element.forwarded_to) }}</td>
+        </ng-container>
          
          <ng-container matColumnDef="initial_status_2">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Time Period</th>
@@ -101,10 +103,10 @@
                   <mat-icon>edit</mat-icon>
                   <span>Edit</span>
                 </button>
-                <button mat-menu-item (click)="deleteRow(element)">
+                <!-- <button mat-menu-item (click)="deleteRow(element)">
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
-                </button>
+                </button> -->
               </mat-menu>
             </td>
           </ng-container>

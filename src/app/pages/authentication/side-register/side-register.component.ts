@@ -43,6 +43,7 @@ export class AppSideRegisterComponent {
     if (this.registerForm.invalid) {
       return;
     }
+   
 
     this.isSubmitting = true;
     const userData = this.registerForm.value;

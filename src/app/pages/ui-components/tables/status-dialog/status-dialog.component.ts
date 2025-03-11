@@ -77,4 +77,9 @@ export class StatusDialogComponent implements OnInit {
       });
     }
   }
+
+  
+  onCancel(): void {
+    this.dialogRef.close(false);
+  }
 }

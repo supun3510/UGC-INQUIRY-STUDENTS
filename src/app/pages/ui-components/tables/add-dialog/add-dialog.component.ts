@@ -53,10 +53,10 @@ export class AddDialogComponent implements OnInit {
 
   // ✅ Submit form with files
   onSubmit() {
-    if (this.selectedFiles.length === 0) {
-      console.error('No files selected');
-      return;
-    }
+    // if (this.selectedFiles.length === 0) {
+    //   console.error('No files selected');
+    //   return;
+    // }
 
     const formData = new FormData();
 

@@ -58,6 +58,22 @@ export class EditDialogComponent {
 
     this.selectedFiles = this.data?.attachment_urls || [];
   }
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      const selectedFiles = Array.from(event.target.files) as File[];
+  
+      // Append files to the selectedFiles array
+      this.selectedFiles = [...this.selectedFiles, ...selectedFiles];
+  
+      console.log("Selected Files:", this.selectedFiles); // Debugging
+    }
+  }
+  
+  
+    // Remove file from the list
+    deleteFile(index: number) {
+      this.selectedFiles.splice(index, 1);
+    }
 
   // Submit or update form data
   onSubmit(): void {
@@ -65,7 +81,7 @@ export class EditDialogComponent {
       // const formData = new FormData();
       var model = {
         nic_number:this.inquiryForm.value.nic_number,
-        student_email:this.inquiryForm.value.student_email,
+        // student_email:this.inquiryForm.value.student_email,
         index_number:this.inquiryForm.value.index_number, 
         student_name:this.inquiryForm.value.student_name,
         academic_year:this.inquiryForm.value.academic_year,

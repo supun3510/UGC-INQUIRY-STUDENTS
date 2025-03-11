@@ -248,12 +248,12 @@ export const navItems: NavItem[] = [
     route: '/ui-components/tables',
   },
   {
-    displayName: 'Me To Others',
+    displayName: 'My inquiries',
     iconName: 'table',
     route: '/ui-components/me-to-others',
   },
     {
-      displayName: 'Others To Me',
+      displayName: 'My Tasks',
       iconName: 'table',
       route: '/ui-components/others-to-me',
     },

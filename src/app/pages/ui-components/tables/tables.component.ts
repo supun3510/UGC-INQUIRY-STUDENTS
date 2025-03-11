@@ -96,12 +96,26 @@ export class AppTablesComponent {
   ngOnInit(){
     // alert('tables')
     this.getData();
+    this.getUsersToForword()
     // this.dataSource1 = this.childData;
     
   }
 
+  getUsersToForword(){
+    this.userService.getUsersToForword().subscribe({
+      next: (data) => {
+        console.log("get data : ", data)
+        this.forwordedList = data.admin_list;
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
+      }
+    });
+  }
     // Method to get the user name by their ID or identifier
     getForwardedUserName(forwardedId: any): string {
+      console.log("forwardedId",forwardedId)
+      console.log("this.forwordedList",this.forwordedList)
       const user = this.forwordedList.find(user => user.id == forwardedId); 
       console.log("user",user)// Assuming 'id' is the key
       return user ? user.first_name + " " + user.last_name : '-';  // Return user name or 'Unknown' if not found

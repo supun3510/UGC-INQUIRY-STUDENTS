@@ -70,9 +70,10 @@ export class UserListComponent {
   getData(){
     this.userService.getUsersToForword().subscribe({
       next: (data) => {
-        console.log("get data : ", data)
-        this.dataSource1 = data.admin_list;
-
+        console.log("get data : ", data);
+        // Sort admin_list by id in ascending order
+        this.dataSource1 = data.admin_list.sort((a: any, b: any) => b.id - a.id);
+        console.log("get data : ", this.dataSource1);
         
   this.datafiltered = new MatTableDataSource(this.dataSource1); // Replace ELEMENT_DATA with your actual data array
   this.datafiltered.paginator = this.paginator;
