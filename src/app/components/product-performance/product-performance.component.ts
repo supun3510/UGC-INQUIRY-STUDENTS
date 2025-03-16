@@ -3,6 +3,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 export interface performanceData {
   id: number;
@@ -69,12 +70,47 @@ interface month {
   templateUrl: './product-performance.component.html',
 })
 export class AppProductPerformanceComponent {
-  displayedColumns: string[] = ['product', 'progress', 'status', 'sales'];
+  displayedColumns: string[] = ['User', 'Count'];
   dataSource = ELEMENT_DATA;
 
-  months: month[] = [
-    { value: 'mar', viewValue: 'March 2025' },
-    { value: 'apr', viewValue: 'April 2025' },
-    { value: 'june', viewValue: 'June 2025' },
-  ];
+     // @Input() inquiryCountsTotal_forworded: number;
+     inquiryCountsTotal_forworded : number;
+     inquiryCountsTotal_resolved : number;
+     inquiryCountsTotal_rejected : number;
+     inquiryCountsByUserTotal: any;
+     inquiryCountsTotal: any;
+     constructor(private dashboardService: DashboardService) {
+ 
+ 
+     }
+ 
+     ngOnInit(){
+         this.dashboardService.getDashboardData().subscribe(
+             {
+               next: (data)=>{
+                 console.log("data from dash",data)
+                 this.inquiryCountsByUserTotal = data.inquiryCountsByUserTotal;
+
+                 this.dataSource = this.inquiryCountsByUserTotal;
+                 this.inquiryCountsTotal = data.inquiryCountsTotal;
+       
+                 var forwordedData = this.inquiryCountsTotal.find((x: { initial_status_1: string; }) => x.initial_status_1 == "Forwarded");
+       
+                 this.inquiryCountsTotal_forworded = forwordedData.count;
+                 console.log("data from dash- inquiryCountsTotal_forworded",this.inquiryCountsTotal_forworded)
+                 var resolvedData = this.inquiryCountsTotal.find((x: { initial_status_1: string; }) => x.initial_status_1 == "Resolved");
+       
+                 this.inquiryCountsTotal_resolved = resolvedData.count;
+       
+                 var rejectedData = this.inquiryCountsTotal.find((x: { initial_status_1: string; }) => x.initial_status_1 == "Rejected");
+       
+                 this.inquiryCountsTotal_rejected = rejectedData.count;
+       
+               },
+               error: (error)=>{
+                 console.log(error);
+               }
+             }
+           )
+     }
 }

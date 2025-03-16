@@ -173,9 +173,9 @@
                     <mat-list-item *ngFor="let file of selectedFiles; let i = index">
                       <mat-icon>insert_drive_file</mat-icon>
                       <span>{{ file.name }} ({{ file.size / 1000 }} KB)</span>
-                      <button mat-icon-button color="warn" (click)="removeFile(i)">
+                      <a color="warn" (click)="removeFile(i)">
                         <mat-icon>delete</mat-icon>
-                      </button>
+                      </a>
                     </mat-list-item>
                   </mat-list>
                 

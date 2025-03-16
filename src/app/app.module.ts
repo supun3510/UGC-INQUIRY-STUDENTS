@@ -14,6 +14,7 @@ import { AppTablesComponent } from './pages/ui-components/tables/tables.componen
 import { EditDialogComponent } from './pages/ui-components/tables/edit-dialog/edit-dialog.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { AppYearlyBreakupComponent } from './components/yearly-breakup/yearly-breakup.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     AddDialogComponent,
     AppTablesComponent,
     EditDialogComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    AppYearlyBreakupComponent
   ],
   imports: [
     BrowserModule,

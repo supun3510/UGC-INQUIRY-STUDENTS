@@ -11,6 +11,7 @@ import { AppTablesComponent } from './tables/tables.component';
 import { MeToOthersComponent } from './me-to-others/me-to-others.component';
 import { OthersToMeComponent } from './others-to-me/others-to-me.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { ForgetPasswordComponent } from '../authentication/forget-password/forget-password.component';
 export const UiComponentsRoutes: Routes = [
   {
     path: '',
@@ -54,7 +55,8 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'user-list',
         component: UserListComponent,
-      },
+      }
+     
     ],
   },
 ];

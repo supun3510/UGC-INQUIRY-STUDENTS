@@ -37,26 +37,6 @@ export class AppRecentTransactionsComponent {
             time: '12.30 pm',
             color: 'success',
             subtext: 'Payment was made of $64.95 to Michael',
-        },
-        {
-            id: 4,
-            time: '12.30 pm',
-            color: 'warning',
-            title: 'New sale recorded',
-            link: '#ML-3467',
-        },
-        {
-            id: 5,
-            time: '12.30 pm',
-            color: 'error',
-            title: 'New arrival recorded',
-            link: '#ML-3467',
-        },
-        {
-            id: 6,
-            time: '12.30 pm',
-            color: 'success',
-            subtext: 'Payment Done',
-        },
+        }
     ];
 }

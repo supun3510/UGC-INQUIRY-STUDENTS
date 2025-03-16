@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, Input } from '@angular/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import {
     ApexChart,
@@ -18,6 +18,8 @@ import {
     NgApexchartsModule,
 } from 'ng-apexcharts';
 import { MaterialModule } from 'src/app/material.module';
+import { StarterComponent } from 'src/app/pages/starter/starter.component';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 
 export interface yearlyChart {
@@ -36,66 +38,45 @@ export interface yearlyChart {
 @Component({
     selector: 'app-yearly-breakup',
     templateUrl: './yearly-breakup.component.html',
-    imports: [MaterialModule, NgApexchartsModule, TablerIconsModule],
+    imports: [MaterialModule, NgApexchartsModule, TablerIconsModule, StarterComponent],
     encapsulation: ViewEncapsulation.None,
 })
 export class AppYearlyBreakupComponent {
-    @ViewChild('chart') chart: ChartComponent = Object.create(null);
-
-    public yearlyChart!: Partial<yearlyChart> | any;
-
-
-    constructor() {
-
-        this.yearlyChart = {
-
-            color: "#adb5bd",
-            series: [38, 40, 25],
-            labels: ["2025", "2024", "2023"],
-            chart: {
-                width: 125,
-                type: "donut",
-                fontFamily: "inherit",
-                foreColor: "#adb0bb",
-            },
-            plotOptions: {
-                pie: {
-                    startAngle: 0,
-                    endAngle: 360,
-                    donut: {
-                        size: "75%",
-                    },
-                },
-            },
-            stroke: {
-                show: false,
-            },
-
-            dataLabels: {
-                enabled: false,
-            },
-
-            legend: {
-                show: false,
-            },
-            colors: ['#5D87FF', '#ECF2FF', '#F9F9FD'],
-
-            responsive: [
-                {
-                    breakpoint: 991,
-                    options: {
-                        chart: {
-                            width: 120,
-                        },
-                    },
-                },
-            ],
-            tooltip: {
-                theme: "dark",
-                fillSeriesColor: false,
-            },
-        };
+    // @Input() inquiryCountsTotal_forworded: number;
+    inquiryCountsTotal_forworded : number;
+    inquiryCountsTotal_resolved : number;
+    inquiryCountsTotal_rejected : number;
+  
+    inquiryCountsTotal: any;
+    constructor(private dashboardService: DashboardService) {
 
 
+    }
+
+    ngOnInit(){
+        this.dashboardService.getDashboardData().subscribe(
+            {
+              next: (data)=>{
+                console.log("data from dash",data)
+                this.inquiryCountsTotal = data.inquiryCountsTotal;
+      
+                var forwordedData = this.inquiryCountsTotal.find((x: { initial_status_1: string; }) => x.initial_status_1 == "Forwarded");
+      
+                this.inquiryCountsTotal_forworded = forwordedData.count;
+                console.log("data from dash- inquiryCountsTotal_forworded",this.inquiryCountsTotal_forworded)
+                var resolvedData = this.inquiryCountsTotal.find((x: { initial_status_1: string; }) => x.initial_status_1 == "Resolved");
+      
+                this.inquiryCountsTotal_resolved = resolvedData.count;
+      
+                var rejectedData = this.inquiryCountsTotal.find((x: { initial_status_1: string; }) => x.initial_status_1 == "Rejected");
+      
+                this.inquiryCountsTotal_rejected = rejectedData.count;
+      
+              },
+              error: (error)=>{
+                console.log(error);
+              }
+            }
+          )
     }
 }
