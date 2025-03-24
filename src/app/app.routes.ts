@@ -17,7 +17,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
-        canActivate: [AuthGuard]  // Protect the dashboard route with the AuthGuard
+        // canActivate: [AuthGuard]  // Protect the dashboard route with the AuthGuard
       },
       {
         path: 'ui-components',
@@ -25,7 +25,7 @@ export const routes: Routes = [
           import('./pages/ui-components/ui-components.routes').then(
             (m) => m.UiComponentsRoutes
           ),
-          canActivate: [AuthGuard]  // Protect the dashboard route with the AuthGuard
+          // canActivate: [AuthGuard]  // Protect the dashboard route with the AuthGuard
       },
       {
         path: 'extra',
