@@ -16,8 +16,8 @@ import { MaterialModule } from 'src/app/material.module';
 export class AddDialogComponent implements OnInit {
   inquiryForm: FormGroup;
   // inquiryTypes: any
-  departments: string[] = ['Admission','UPF', 'Pension', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal', 'Other'];
-  inquiryTypes: string[] = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
+  departments: string[] = ['Admission','Chairman office','UPF', 'Pension', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal', 'Other'];
+  inquiryTypes: string[] = ['Cutoff','Recognition Letter', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
   forwardedOptions: string[] = ['Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal','Secretariat Office','SAS Shalika', 'AS Amanadee', 'AS Vijini','AS Gihani', 'Other'];
   statusOptions = ['Resolved','Forwarded','Rejected']
   forwordedList : any[] = []
@@ -32,18 +32,21 @@ export class AddDialogComponent implements OnInit {
     this.getUsersToForword()
     // Initialize form group with validation
     this.inquiryForm = new FormGroup({
-      index_number: new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(7)]),
+      index_number: new FormControl('', [Validators.minLength(7),Validators.maxLength(7)]),
       student_name: new FormControl('', Validators.required),
       phone_number: new FormControl('', [
         Validators.required,
         Validators.pattern('^[0-9]{9}$')]),
-      academic_year: new FormControl('', Validators.required),
+      academic_year: new FormControl(''),
       department: new FormControl('', Validators.required),
       inquiry: new FormControl('', Validators.required),
       forwarded_to: new FormControl(''),
       initial_status_1: new FormControl(''),
       forword_status: new FormControl(''),
-      nic_number: new FormControl('', Validators.required),
+      nic_number: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^([0-9]{9}[vVxX]|[0-9]{12})$')
+      ]),
       student_email: new FormControl('', [Validators.required, Validators.email]),
       // files: new FormControl(''),
       remarks: new FormControl('')

@@ -11,9 +11,6 @@
               <mat-form-field appearance="outline" class="w-100 mb-3">
                 <mat-label>Index Number</mat-label>
                 <input matInput formControlName="index_number" />
-                <mat-error *ngIf="inquiryForm.get('index_number')?.hasError('required')">
-                  Index Number is required.
-                </mat-error>
                 <mat-error *ngIf="inquiryForm.get('index_number')?.hasError('minlength')">
                   Index Number must be at least 7 digits.
                 </mat-error>
@@ -51,8 +48,8 @@
               <mat-form-field appearance="outline" class="w-50">
                 <mat-label>NIC Number</mat-label>
                 <input matInput formControlName="nic_number" />
-                <mat-error *ngIf="inquiryForm.get('nic_number')?.hasError('required')">
-                  NIC Number is required.
+                <mat-error *ngIf="inquiryForm.get('nic_number')?.hasError('required') || inquiryForm.get('nic_number')?.hasError('pattern')">
+                  NIC Number is required and must be in format: 123456789V or 123456789X or 123456789123
                 </mat-error>
               </mat-form-field>
           
@@ -75,9 +72,6 @@
                 <mat-form-field appearance="outline" class="w-50">
                   <mat-label>Academic Year</mat-label>
                   <input matInput formControlName="academic_year" />
-                  <mat-error *ngIf="inquiryForm.get('academic_year')?.hasError('required')">
-                    Academic Year is required.
-                  </mat-error>
                 </mat-form-field>
             
                 <mat-form-field appearance="outline" class="w-50">

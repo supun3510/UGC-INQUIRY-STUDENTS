@@ -16,8 +16,8 @@ import { environment } from 'environment';
 })
 export class EditDialogComponent {
   inquiryForm: FormGroup;
-  departments: string[] = ['Admission','UPF', 'Pension', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal', 'Other'];
-  inquiryTypes: string[] = ['Cutoff', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
+  departments: string[] = ['Admission','Chairman office','UPF', 'Pension', 'Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal', 'Other'];
+  inquiryTypes: string[] = ['Cutoff','Recognition Letter', 'Normal intake', 'Special intake', 'Disable Intake', 'CGP', 'Late Reg', 'Previous Course back', 'Email or Phone Number Change', 'Mahapola', 'Other'];
   forwardedOptions: string[] = ['Academic', 'HR', 'Finance', 'General Admin', 'Personnel', 'MIS', 'Secretariat Office', 'Vice Chairman Office', 'Legal','Secretariat Office','SAS Shalika', 'AS Amanadee', 'AS Vijini','AS Gihani', 'Other'];
    statusOptions = ['Resolved','In Progress','Forwarded']
    selectedFiles: File[] = [];
@@ -35,13 +35,13 @@ export class EditDialogComponent {
     // Initialize form group with validation
     this.inquiryForm = new FormGroup({
 
-      index_number: new FormControl(this.data?.index_number , [Validators.required,Validators.minLength(7),Validators.maxLength(7)]),
+      index_number: new FormControl(this.data?.index_number , [Validators.minLength(7),Validators.maxLength(7)]),
       student_name: new FormControl(this.data?.student_name , Validators.required),
       phone_number: new FormControl(this.data?.phone_number , [
         Validators.required,
         Validators.pattern('^[0-9]{9}$')
       ]),
-      academic_year: new FormControl(this.data?.academic_year , Validators.required),
+      academic_year: new FormControl(this.data?.academic_year),
       department: new FormControl(this.data?.department , Validators.required),
       inquiry: new FormControl(this.data?.inquiry , Validators.required),
       forwarded_to: new FormControl(this.data?.forwarded_to , [Validators.required]),
@@ -52,7 +52,10 @@ export class EditDialogComponent {
       createdAt: new FormControl(this.data?.created_at ),
       updatedAt: new FormControl(this.data?.updated_at),
       user_id: new FormControl(this.data?.user_id ),
-      nic_number: new FormControl(this.data?.nic_number),
+      nic_number: new FormControl(this.data?.nic_number,[
+        Validators.required,
+        Validators.pattern('^([0-9]{9}[vVxX]|[0-9]{12})$')
+      ]),
       student_email: new FormControl(this.data?.student_email)
     });
 

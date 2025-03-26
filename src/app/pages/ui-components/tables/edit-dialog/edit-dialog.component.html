@@ -49,8 +49,8 @@
                 <mat-form-field appearance="outline" class="w-50">
                   <mat-label>NIC Number</mat-label>
                   <input matInput formControlName="nic_number" />
-                  <mat-error *ngIf="inquiryForm.get('nic_number')?.hasError('required')">
-                    NIC Number is required.
+                  <mat-error *ngIf="inquiryForm.get('nic_number')?.hasError('required') || inquiryForm.get('nic_number')?.hasError('pattern')">
+                    NIC Number is required and must be in format: 123456789V or 123456789X or 123456789123
                   </mat-error>
                 </mat-form-field>
             
