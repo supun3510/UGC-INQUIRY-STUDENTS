@@ -71,7 +71,7 @@ export class EditDialogComponent {
   
       console.log("Selected Files:", this.selectedFiles); // Debugging
       
-    alert("calling 1")
+    // alert("calling 1")
     const formData = new FormData();
 
 
