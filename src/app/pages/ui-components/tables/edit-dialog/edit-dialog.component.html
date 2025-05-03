@@ -130,22 +130,22 @@
                 <mat-card-title>Upload Documents</mat-card-title>
               
                 <!-- Custom File Upload Button -->
-                <!-- <div class="upload-container">
+                <div class="upload-container">
                   <input type="file" multiple (change)="onFileSelected($event)" #fileInput hidden />
 
                   <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
                     <mat-icon>cloud_upload</mat-icon> Choose Files
                   </button>
-                </div> -->
+                </div>
               
                 <!-- Selected Files List -->
                 <mat-list *ngIf="selectedFiles.length > 0">
                   <mat-list-item *ngFor="let file of selectedFiles; let i = index">
                     <mat-icon>insert_drive_file</mat-icon>
                     <span>{{ file }}</span>
-                    <!-- <button mat-icon-button color="warn" style="margin-right: 15px; margin-top: 10px;" (click)="deleteFile(i)">
+                    <button mat-icon-button color="warn" style="margin-right: 15px; margin-top: 10px;" (click)="deleteFile(i , file)">
                       <mat-icon>delete</mat-icon>
-                    </button> -->
+                    </button>
                     <!-- <button mat-icon-button color="primary"> -->
                       <a href="{{baseURL}}/attachments/{{file}}" style="font-size: medium;" style="margin-left: 15px; " target="_blank">View</a>
 

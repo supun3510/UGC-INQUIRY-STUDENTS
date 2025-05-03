@@ -67,15 +67,64 @@ export class EditDialogComponent {
   
       // Append files to the selectedFiles array
       this.selectedFiles = [...this.selectedFiles, ...selectedFiles];
+      
   
       console.log("Selected Files:", this.selectedFiles); // Debugging
+      
+    alert("calling 1")
+    const formData = new FormData();
+
+
+    // ✅ Append multiple files properly
+    selectedFiles.forEach((file) => {
+      formData.append('files', file, file.name); // Ensure backend expects 'files'
+    });
+
+    //  // ✅ Append all form fields except files
+    //  Object.keys(this.inquiryForm.value).forEach((key) => {
+    //   if (key !== 'files' && this.inquiryForm.value[key]) {
+    //     formData.append(key, this.inquiryForm.value[key]);
+    //   }
+    // });
+    // ✅ Append other required form fields
+    formData.append('id', this.data.id);
+
+     // ✅ Send request
+     this.inquiryService.editInquiryFile(formData).subscribe({
+      next: (response) => {
+        console.log('Files & Data uploaded successfully', response);
+        // this.selectedFiles = []; // Reset files after upload
+        // this.dialogRef.close(true);
+      },
+      error: (error) => {
+        console.error('Error uploading files & form data', error);
+      }
+    });
     }
+
   }
   
   
     // Remove file from the list
-    deleteFile(index: number) {
+    deleteFile(index: number , name: any) {
       this.selectedFiles.splice(index, 1);
+      const formData = {
+        "file_name": name,
+"id":this.data.id
+      }
+
+      // formData.append('file_name', name);
+      // formData.append('id', this.data.id);
+      this.inquiryService.deleteInquiryFile(formData).subscribe({
+        next: (res: any) => {
+          // this.dialogRef.close(true);
+          // this.snackBar.open('Record updated successfully', 'Close', { duration: 2000 });
+          // this.get(); // Refresh table data
+        },
+        error: error => {
+          // this.snackBar.open('Error updating record', 'Close', { duration: 2000 });
+        }
+      });
     }
 
   // Submit or update form data

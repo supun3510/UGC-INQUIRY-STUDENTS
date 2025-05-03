@@ -72,6 +72,15 @@ export class TableService {
     return this.http.post<any>(environment.baseURL + "/users/add-inquiry", model ,{headers});
   }
 
+  editInquiryFile(model: any): Observable<any> {
+    alert("caling 2")
+    var token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<any>(environment.baseURL + "/users/edit-inquiry-file", model ,{headers});
+  }
+
   editInquiry(id: any, model: any): Observable<any> {
     var token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -86,6 +95,14 @@ deleteInquiry(id: any): Observable<any> {
     'Authorization': `Bearer ${token}`
   });
   return this.http.delete<any>(environment.baseURL + `/users/inquiry/${id}`, {headers});
+}
+
+deleteInquiryFile(model: any): Observable<any> {
+  var token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.post<any>(environment.baseURL + `/users/delete-inquiry-file` , model , {headers});
 }
 
 updateStatus(model: any): Observable<any> {
