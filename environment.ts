@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    baseURL: 'https://b1a3e6188207.ngrok-free.app',
+    baseURL: 'https://6caf4522e95d.ngrok-free.app',
     key: 'FGFygbvxywvdmgiszzmdjgdfujkquwsDEQDABjkdnNC'
   };
   
